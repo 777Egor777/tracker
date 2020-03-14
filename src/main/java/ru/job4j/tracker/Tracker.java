@@ -89,13 +89,45 @@ public class Tracker {
      *         request with such id
      */
     public Item findById(String id) {
-        Item result = null;
+        int index = this.indexOf(id);
+        return index == -1 ? null : this.items[index];
+    }
+
+    /**
+     * Method find index in
+     * "items" array of request,
+     * that has this special
+     * id
+     * @param id - id of searchable
+     *             request
+     * @return index(int number) - if
+     *         request with such id
+     *         exit in the array
+     *
+     *         null - otherwise
+     */
+    private int indexOf(String id) {
+        int result = -1;
         for (int index = 0; index < this.size; ++index) {
             if (this.items[index].getId().equals(id)) {
-                result = this.items[index];
+                result = index;
                 break;
             }
         }
         return result;
+    }
+
+    /**
+     * Method replace request with id "id"
+     * by the request "item"
+     * @param id - id of the replacable
+     *             request
+     * @param item - new request, that
+     *               replaces the old request
+     */
+    public void replace(String id, Item item) {
+        int index = indexOf(id);
+        item.setId(id);
+        this.items[index] = item;
     }
 }
