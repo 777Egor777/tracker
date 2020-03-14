@@ -130,4 +130,17 @@ public class Tracker {
         item.setId(id);
         this.items[index] = item;
     }
+
+    /**
+     * Method delete request
+     * with id "id"
+     * @param id - id of the request
+     *             that we should delete
+     */
+    public void delete(String id) {
+        int index = indexOf(id);
+        System.arraycopy(this.items, index + 1, this.items, index, this.size - index - 1);
+        this.items[this.size - 1] = null;
+        this.size--;
+    }
 }
