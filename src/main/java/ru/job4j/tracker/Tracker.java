@@ -139,8 +139,10 @@ public class Tracker {
      */
     public void delete(String id) {
         int index = indexOf(id);
-        System.arraycopy(this.items, index + 1, this.items, index, this.size - index - 1);
-        this.items[this.size - 1] = null;
-        this.size--;
+        if (index != -1) {
+            System.arraycopy(this.items, index + 1, this.items, index, this.size - index - 1);
+            this.items[this.size - 1] = null;
+            this.size--;
+        }
     }
 }
