@@ -39,7 +39,7 @@ public class StubInput implements Input {
      * user type
      */
     @Override
-    public String askInt(String question) {
-        return null;
+    public int askInt(String question) {
+        return 0;
     }
 }

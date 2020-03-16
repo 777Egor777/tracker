@@ -33,7 +33,7 @@ public class StartUI {
      *                 diapason
      * @return number that user enter
      */
-    private int getInputNumberFromDiapason(Input input, String message, int start, int finish) {
+    private static int getInputNumberFromDiapason(Input input, String message, int start, int finish) {
         int result = -1;
         while (!(result >= start && result <= finish)) {
             result = input.askInt(message);
@@ -45,7 +45,7 @@ public class StartUI {
     /**
      * Print all menu items
      */
-    private void showMenu() {
+    private static void showMenu() {
         System.out.println("Menu.");
         System.out.println("0. Add new Item");
         System.out.println("1. Show all items");
@@ -69,7 +69,7 @@ public class StartUI {
      *                input.
      * @return new String that user print
      */
-    private String getInputString(String message, Input input) {
+    private static String getInputString(String message, Input input) {
        String result = "";
        boolean run = true;
        while (run) {
@@ -87,7 +87,7 @@ public class StartUI {
      * @param item - Item object to
      *               print
      */
-    private void printItem(int index, Item item) {
+    private static void printItem(int index, Item item) {
         String result = "";
         if (index != -1) {
             result = String.format("%d. id: \"%s\"\n   name: \"%s\"\n",
@@ -110,14 +110,14 @@ public class StartUI {
      *                which name's we
      *                should print
      */
-    private void printItems(Item[] items) {
+    private static void printItems(Item[] items) {
         if (items != null) {
             if (items.length > 1) {
                 for (int index = 0; index < items.length; ++index) {
-                    this.printItem(index, items[index]);
+                    StartUI.printItem(index, items[index]);
                 }
             } else if (items.length == 1) {
-                this.printItem(-1, items[0]);
+                StartUI.printItem(-1, items[0]);
             } else {
                 System.out.println("No items in tracker at the moment!!!");
             }
@@ -136,9 +136,9 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void addItemToTracker(Input input, Tracker tracker) {
+    private static void addItemToTracker(Input input, Tracker tracker) {
         System.out.println("=== Add new Item ===");
-        String itemName = this.getInputString("Enter item name: ", input);
+        String itemName = StartUI.getInputString("Enter item name: ", input);
         Item item = new Item(itemName);
         tracker.add(item);
     }
@@ -150,10 +150,10 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void showAllItems(Tracker tracker) {
+    private static void showAllItems(Tracker tracker) {
         System.out.println("=== Show all items ===");
         Item[] allItems = tracker.findAll();
-        this.printItems(allItems);
+        StartUI.printItems(allItems);
     }
 
     /**
@@ -168,10 +168,10 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void editItemInTracker(Input input, Tracker tracker) {
+    private static void editItemInTracker(Input input, Tracker tracker) {
         System.out.println("=== Edit item ===");
-        String itemId = this.getInputString("Enter id: ", input);
-        String itemName = this.getInputString("Enter item name: ", input);
+        String itemId = StartUI.getInputString("Enter id: ", input);
+        String itemName = StartUI.getInputString("Enter item name: ", input);
         Item item = new Item(itemName);
         if (tracker.replace(itemId, item)) {
             System.out.println("Operation successful!");
@@ -191,9 +191,9 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void deleteItemFromTracker(Input input, Tracker tracker) {
+    private static void deleteItemFromTracker(Input input, Tracker tracker) {
         System.out.println("=== Delete item ===");
-        String itemId = this.getInputString("Enter id: ", input);
+        String itemId = StartUI.getInputString("Enter id: ", input);
         if (tracker.delete(itemId)) {
             System.out.println("Operation successful!");
         } else {
@@ -214,14 +214,14 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void findItemById(Input input, Tracker tracker) {
+    private static void findItemById(Input input, Tracker tracker) {
         System.out.println("=== Find item by id  ===");
-        String itemId = this.getInputString("Enter id: ", input);
+        String itemId = StartUI.getInputString("Enter id: ", input);
         Item item = tracker.findById(itemId);
         if (item == null) {
             System.out.println("No such id");
         } else {
-            this.printItem(-1, item);
+            StartUI.printItem(-1, item);
         }
     }
 
@@ -238,11 +238,11 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void findItemsByName(Input input, Tracker tracker) {
+    private static void findItemsByName(Input input, Tracker tracker) {
         System.out.println("=== Find item's by name ===");
-        String itemName = this.getInputString("Enter name: ", input);
+        String itemName = StartUI.getInputString("Enter name: ", input);
         Item[] items = tracker.findByName(itemName);
-        this.printItems(items);
+        StartUI.printItems(items);
     }
 
     /**
@@ -258,23 +258,23 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void init(Input input, Tracker tracker) {
+    private static void init(Input input, Tracker tracker) {
         boolean run = true;
         while (run) {
-            this.showMenu();
-            int select = this.getInputNumberFromDiapason(input, "Select: ", 0, 6);
+            StartUI.showMenu();
+            int select = StartUI.getInputNumberFromDiapason(input, "Select: ", 0, 6);
             switch (select) {
-                case 0: this.addItemToTracker(input, tracker);
+                case 0: StartUI.addItemToTracker(input, tracker);
                         break;
-                case 1: this.showAllItems(tracker);
+                case 1: StartUI.showAllItems(tracker);
                         break;
-                case 2: this.editItemInTracker(input, tracker);
+                case 2: StartUI.editItemInTracker(input, tracker);
                         break;
-                case 3: this.deleteItemFromTracker(input, tracker);
+                case 3: StartUI.deleteItemFromTracker(input, tracker);
                         break;
-                case 4: this.findItemById(input, tracker);
+                case 4: StartUI.findItemById(input, tracker);
                         break;
-                case 5: this.findItemsByName(input, tracker);
+                case 5: StartUI.findItemsByName(input, tracker);
                         break;
                 case 6: System.out.println("=== Exit program ===");
                         run = false;
@@ -291,13 +291,10 @@ public class StartUI {
      * objects and start to
      * interact with user.
      * @param args - standard compiler args
-     * @throws IOException - method can
-     *                       throw exception during
-     *                       input-output processes
      */
     public static void main(String[] args) {
         Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        new StartUI().init(input, tracker);
+        StartUI.init(input, tracker);
     }
 }
