@@ -20,8 +20,8 @@ public class Library {
         System.out.println("Output only books with name \"Clean code\"");
         for (int index = 0; index < books.length; ++index) {
             if (books[index].getName().equals("Clean code")) {
-                System.out.println(books[index].getName() + " - " +
-                                   books[index].getPages() + " pages");
+                System.out.println(books[index].getName() + " - "
+                                 + books[index].getPages() + " pages");
             }
         }
     }

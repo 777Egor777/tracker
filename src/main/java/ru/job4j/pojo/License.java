@@ -65,12 +65,17 @@ public class License {
                 result = false;
             } else {
                 License license = (License) obj;
-                result = eq(this.model, license.getModel()) &&
-                        eq(this.owner, license.getOwner()) &&
-                        eq(this.code, license.getCode()) &&
-                        eq(this.created, license.getCreated());
+                result = eq(this.model, license.getModel())
+                      && eq(this.owner, license.getOwner())
+                      && eq(this.code, license.getCode())
+                      && eq(this.created, license.getCreated());
             }
         }
         return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
