@@ -32,7 +32,8 @@ public class Tracker {
      *         id for some request
      */
     private String generateId() {
-        return "" + new Date().getTime() * Math.random();
+        long idNumber = (long) (new Date().getTime() * Math.random());
+        return "" + idNumber;
     }
 
     /**
@@ -125,12 +126,15 @@ public class Tracker {
      * @param item - new request, that
      *               replaces the old request
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
+        boolean result = false;
         int index = indexOf(id);
         if (index != -1) {
             item.setId(id);
             this.items[index] = item;
+            result = true;
         }
+        return result;
     }
 
     /**
@@ -139,12 +143,15 @@ public class Tracker {
      * @param id - id of the request
      *             that we should delete
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean result = false;
         int index = indexOf(id);
         if (index != -1) {
             System.arraycopy(this.items, index + 1, this.items, index, this.size - index - 1);
             this.items[this.size - 1] = null;
             this.size--;
+            result = true;
         }
+        return result;
     }
 }
