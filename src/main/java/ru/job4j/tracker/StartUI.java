@@ -1,8 +1,5 @@
 package ru.job4j.tracker;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 /**
  * Class used to interact
  * with user. It get from
@@ -21,8 +18,9 @@ public class StartUI {
      * interactive input of the
      * integer number from
      * diapason [start, finish]
-     * @param scanner - object of
-     *                java.util.Scanner.
+     * @param input - object of
+     *                class that realise
+     *                Input interface.
      *                Need to organise
      *                input.
      * @param message - Start message,
@@ -35,11 +33,10 @@ public class StartUI {
      *                 diapason
      * @return number that user enter
      */
-    private int getInputNumberFromDiapason(Scanner scanner, String message, int start, int finish) throws IOException {
+    private int getInputNumberFromDiapason(Input input, String message, int start, int finish) {
         int result = -1;
         while (!(result >= start && result <= finish)) {
-            System.out.print(message);
-            result = Integer.parseInt(scanner.nextLine());
+            result = input.askInt(message);
         }
         System.out.println();
         return result;
@@ -65,18 +62,18 @@ public class StartUI {
      * @param message - Start message. Output
      *                  to console before user
      *                  can print
-     * @param scanner - object of
-     *                java.util.Scanner.
+     * @param input - object of class
+     *                that realise Input
+     *                interface.
      *                Need to organise
      *                input.
      * @return new String that user print
      */
-    private String getInputString(String message, Scanner scanner) {
+    private String getInputString(String message, Input input) {
        String result = "";
        boolean run = true;
        while (run) {
-           System.out.print(message);
-           result = scanner.nextLine();
+           result = input.askStr(message);
            run = false;
        }
        return result;
@@ -131,16 +128,17 @@ public class StartUI {
      * Interact mecthod.
      * Used for add new
      * item to Tracker
-     * @param scanner - object of
-     *                java.util.Scanner.
+     * @param input - object of class
+     *                that realise Input
+     *                interface.
      *                Need to organise
      *                input.
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void addItemToTracker(Scanner scanner, Tracker tracker) {
+    private void addItemToTracker(Input input, Tracker tracker) {
         System.out.println("=== Add new Item ===");
-        String itemName = this.getInputString("Enter item name: ", scanner);
+        String itemName = this.getInputString("Enter item name: ", input);
         Item item = new Item(itemName);
         tracker.add(item);
     }
@@ -162,17 +160,18 @@ public class StartUI {
      * Interact mecthod.
      * Used for edit
      * item in the Tracker
-     * @param scanner - object of
-     *                java.util.Scanner.
+     * @param input - object of class
+     *                that realise Input
+     *                interface.
      *                Need to organise
      *                input.
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void editItemInTracker(Scanner scanner, Tracker tracker) {
+    private void editItemInTracker(Input input, Tracker tracker) {
         System.out.println("=== Edit item ===");
-        String itemId = this.getInputString("Enter id: ", scanner);
-        String itemName = this.getInputString("Enter item name: ", scanner);
+        String itemId = this.getInputString("Enter id: ", input);
+        String itemName = this.getInputString("Enter item name: ", input);
         Item item = new Item(itemName);
         if (tracker.replace(itemId, item)) {
             System.out.println("Operation successful!");
@@ -185,16 +184,16 @@ public class StartUI {
      * Interact mecthod.
      * Used for deleting
      * item from the Tracker
-     * @param scanner - object of
-     *                java.util.Scanner.
+     * @param input - object of class that
+     *                realise Input interface.
      *                Need to organise
      *                input.
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void deleteItemFromTracker(Scanner scanner, Tracker tracker) {
+    private void deleteItemFromTracker(Input input, Tracker tracker) {
         System.out.println("=== Delete item ===");
-        String itemId = this.getInputString("Enter id: ", scanner);
+        String itemId = this.getInputString("Enter id: ", input);
         if (tracker.delete(itemId)) {
             System.out.println("Operation successful!");
         } else {
@@ -207,16 +206,17 @@ public class StartUI {
      * Used for searching
      * Item with id
      * that user enters.
-     * @param scanner - object of
-     *                java.util.Scanner.
+     * @param input - object of class
+     *                that realise Input
+     *                interface.
      *                Need to organise
      *                input.
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void findItemById(Scanner scanner, Tracker tracker) {
+    private void findItemById(Input input, Tracker tracker) {
         System.out.println("=== Find item by id  ===");
-        String itemId = this.getInputString("Enter id: ", scanner);
+        String itemId = this.getInputString("Enter id: ", input);
         Item item = tracker.findById(itemId);
         if (item == null) {
             System.out.println("No such id");
@@ -230,16 +230,17 @@ public class StartUI {
      * Used for searching
      * Item's with name
      * that user enters.
-     * @param scanner - object of
-     *                java.util.Scanner.
+     * @param input - object of class
+     *                that realise Input
+     *                interface.
      *                Need to organise
      *                input.
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void findItemsByName(Scanner scanner, Tracker tracker) {
+    private void findItemsByName(Input input, Tracker tracker) {
         System.out.println("=== Find item's by name ===");
-        String itemName = this.getInputString("Enter name: ", scanner);
+        String itemName = this.getInputString("Enter name: ", input);
         Item[] items = tracker.findByName(itemName);
         this.printItems(items);
     }
@@ -249,30 +250,31 @@ public class StartUI {
      * number of menu item, and
      * do call necessary operation
      * next.
-     * @param scanner - object of
-     *                java.util.Scanner.
+     * @param input - object of class
+     *                that realise Input
+     *                interface.
      *                Need to organise
      *                input.
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private void init(Scanner scanner, Tracker tracker) throws IOException {
+    private void init(Input input, Tracker tracker) {
         boolean run = true;
         while (run) {
             this.showMenu();
-            int select = this.getInputNumberFromDiapason(scanner, "Select: ", 0, 6);
+            int select = this.getInputNumberFromDiapason(input, "Select: ", 0, 6);
             switch (select) {
-                case 0: this.addItemToTracker(scanner, tracker);
+                case 0: this.addItemToTracker(input, tracker);
                         break;
                 case 1: this.showAllItems(tracker);
                         break;
-                case 2: this.editItemInTracker(scanner, tracker);
+                case 2: this.editItemInTracker(input, tracker);
                         break;
-                case 3: this.deleteItemFromTracker(scanner, tracker);
+                case 3: this.deleteItemFromTracker(input, tracker);
                         break;
-                case 4: this.findItemById(scanner, tracker);
+                case 4: this.findItemById(input, tracker);
                         break;
-                case 5: this.findItemsByName(scanner, tracker);
+                case 5: this.findItemsByName(input, tracker);
                         break;
                 case 6: System.out.println("=== Exit program ===");
                         run = false;
@@ -293,9 +295,9 @@ public class StartUI {
      *                       throw exception during
      *                       input-output processes
      */
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        new StartUI().init(scanner, tracker);
+        new StartUI().init(input, tracker);
     }
 }

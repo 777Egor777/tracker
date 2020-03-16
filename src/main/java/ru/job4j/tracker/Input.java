@@ -34,5 +34,5 @@ public interface Input {
      * @return Integer number, that
      *         user type
      */
-    String askInt(String question);
+    int askInt(String question);
 }
