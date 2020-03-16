@@ -33,7 +33,7 @@ public class StartUI {
      *                 diapason
      * @return number that user enter
      */
-    private static int getInputNumberFromDiapason(Input input, String message, int start, int finish) {
+    public static int getInputNumberFromDiapason(Input input, String message, int start, int finish) {
         int result = -1;
         while (!(result >= start && result <= finish)) {
             result = input.askInt(message);
@@ -45,7 +45,7 @@ public class StartUI {
     /**
      * Print all menu items
      */
-    private static void showMenu() {
+    public static void showMenu() {
         System.out.println("Menu.");
         System.out.println("0. Add new Item");
         System.out.println("1. Show all items");
@@ -69,7 +69,7 @@ public class StartUI {
      *                input.
      * @return new String that user print
      */
-    private static String getInputString(String message, Input input) {
+    public static String getInputString(String message, Input input) {
        String result = "";
        boolean run = true;
        while (run) {
@@ -87,7 +87,7 @@ public class StartUI {
      * @param item - Item object to
      *               print
      */
-    private static void printItem(int index, Item item) {
+    public static void printItem(int index, Item item) {
         String result = "";
         if (index != -1) {
             result = String.format("%d. id: \"%s\"\n   name: \"%s\"\n",
@@ -110,7 +110,7 @@ public class StartUI {
      *                which name's we
      *                should print
      */
-    private static void printItems(Item[] items) {
+    public static void printItems(Item[] items) {
         if (items != null) {
             if (items.length > 1) {
                 for (int index = 0; index < items.length; ++index) {
@@ -136,7 +136,7 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private static void addItemToTracker(Input input, Tracker tracker) {
+    public static void addItemToTracker(Input input, Tracker tracker) {
         System.out.println("=== Add new Item ===");
         String itemName = StartUI.getInputString("Enter item name: ", input);
         Item item = new Item(itemName);
@@ -150,7 +150,7 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private static void showAllItems(Tracker tracker) {
+    public static void showAllItems(Tracker tracker) {
         System.out.println("=== Show all items ===");
         Item[] allItems = tracker.findAll();
         StartUI.printItems(allItems);
@@ -168,7 +168,7 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private static void editItemInTracker(Input input, Tracker tracker) {
+    public static void editItemInTracker(Input input, Tracker tracker) {
         System.out.println("=== Edit item ===");
         String itemId = StartUI.getInputString("Enter id: ", input);
         String itemName = StartUI.getInputString("Enter item name: ", input);
@@ -191,7 +191,7 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private static void deleteItemFromTracker(Input input, Tracker tracker) {
+    public static void deleteItemFromTracker(Input input, Tracker tracker) {
         System.out.println("=== Delete item ===");
         String itemId = StartUI.getInputString("Enter id: ", input);
         if (tracker.delete(itemId)) {
@@ -214,7 +214,7 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private static void findItemById(Input input, Tracker tracker) {
+    public static void findItemById(Input input, Tracker tracker) {
         System.out.println("=== Find item by id  ===");
         String itemId = StartUI.getInputString("Enter id: ", input);
         Item item = tracker.findById(itemId);
@@ -238,7 +238,7 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private static void findItemsByName(Input input, Tracker tracker) {
+    public static void findItemsByName(Input input, Tracker tracker) {
         System.out.println("=== Find item's by name ===");
         String itemName = StartUI.getInputString("Enter name: ", input);
         Item[] items = tracker.findByName(itemName);
@@ -258,7 +258,7 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    private static void init(Input input, Tracker tracker) {
+    public static void init(Input input, Tracker tracker) {
         boolean run = true;
         while (run) {
             StartUI.showMenu();

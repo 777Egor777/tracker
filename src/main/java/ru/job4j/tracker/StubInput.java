@@ -2,44 +2,61 @@ package ru.job4j.tracker;
 
 /**
  * Realisation of the
- * Input intercface.
+ * Input interface.
+ * This class need for
+ * testing.
  * @author Egor Geraskin (yegeraskin13@gmail.com)
  * @version 1.0
  */
 public class StubInput implements Input {
     /**
-     * Method send question
-     * to standard output
-     * an input String from
-     * user
-     *
-     * @param question - we output this
-     *                 question. It need
-     *                 for user to understand
-     *                 what he should type
-     * @return String, that
-     * user type
+     * We consider this strings
+     * as "input" from user
      */
-    @Override
-    public String askStr(String question) {
-        return null;
+    private String[] answers;
+
+    /**
+     * Current position in
+     * "answers" array.
+     */
+    private int position = 0;
+
+    /**
+     * Constructor accept
+     * Strings that we
+     * perceive as "input"
+     * Strings
+     * @param answers
+     */
+    public StubInput(String[] answers) {
+        this.answers = answers;
     }
 
     /**
-     * Method send question
-     * to standard output
-     * an input integer
-     * number from user
-     *
-     * @param question - we output this
-     *                 question. It need
-     *                 for user to understand
-     *                 what he should type
-     * @return Integer number, that
-     * user type
+     * Method return java.lang.String
+     * object, that we can consider
+     * as "input" String
+     * @param question - Addition information.
+     *                   We don't need it
+     *                   in this realisation.
+     * @return "input" String
+     */
+    @Override
+    public String askStr(String question) {
+        return this.answers[this.position++];
+    }
+
+    /**
+     * Same as in previous method,
+     * but we convert it to integer
+     * number.
+     * @param question - Addition information.
+     *                   We don't need it
+     *                   in this realisation.
+     * @return "input" integer number
      */
     @Override
     public int askInt(String question) {
-        return 0;
+        return Integer.parseInt(this.askStr(question));
     }
 }
