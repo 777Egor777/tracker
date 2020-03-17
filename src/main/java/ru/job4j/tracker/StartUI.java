@@ -16,7 +16,7 @@ public class StartUI {
      * All possible actions
      * that user can call
      */
-    public static UserAction[] actions;
+    public UserAction[] actions;
     {
         this.actions = new UserAction[]{
                 new AddItem(),
@@ -61,7 +61,7 @@ public class StartUI {
     /**
      * Print all menu items
      */
-    public static void showMenu(UserAction[] actions) {
+    public void showMenu(UserAction[] actions) {
         System.out.println("Menu.");
         for (int index = 0; index < actions.length; ++index) {
             System.out.println(index + ": " + actions[index].name());
@@ -149,10 +149,10 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    public static void init(Input input, Tracker tracker, UserAction[] actions) {
+    public void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
         while (run) {
-            StartUI.showMenu(actions);
+            this.showMenu(actions);
             int select = StartUI.getInputNumberFromDiapason(input,
                     "Select: ", 0, actions.length - 1);
             run = actions[select].execute(input, tracker);
@@ -170,6 +170,7 @@ public class StartUI {
     public static void main(String[] args) {
         Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        StartUI.init(input, tracker, StartUI.actions);
+        StartUI  UserInterface = new StartUI();
+        UserInterface.init(input, tracker, UserInterface.actions);
     }
 }
