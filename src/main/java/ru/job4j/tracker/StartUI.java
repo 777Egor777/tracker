@@ -12,6 +12,22 @@ package ru.job4j.tracker;
  * @version 1.0
  */
 public class StartUI {
+    /**
+     * All possible actions
+     * that user can call
+     */
+    public static UserAction[] actions;
+    {
+        this.actions = new UserAction[]{
+                new AddItem(),
+                new ShowAllItems(),
+                new EditItem(),
+                new DeleteItem(),
+                new FindItemByID(),
+                new FindItemByName(),
+                new ExitItem()
+        };
+    }
 
     /**
      * Method, that organize
@@ -45,15 +61,11 @@ public class StartUI {
     /**
      * Print all menu items
      */
-    public static void showMenu() {
+    public static void showMenu(UserAction[] actions) {
         System.out.println("Menu.");
-        System.out.println("0. Add new Item");
-        System.out.println("1. Show all items");
-        System.out.println("2. Edit item");
-        System.out.println("3. Delete item");
-        System.out.println("4. Find item by Id");
-        System.out.println("5. Find items by name");
-        System.out.println("6. Exit Program");
+        for (int index = 0; index < actions.length; ++index) {
+            System.out.println(index + ": " + actions[index].name());
+        }
     }
 
     /**
@@ -88,7 +100,7 @@ public class StartUI {
      *               print
      */
     public static void printItem(int index, Item item) {
-        String result = "";
+        String result;
         if (index != -1) {
             result = String.format("%d. id: \"%s\"\n   name: \"%s\"\n",
                                    index,
@@ -125,127 +137,6 @@ public class StartUI {
     }
 
     /**
-     * Interact mecthod.
-     * Used for add new
-     * item to Tracker
-     * @param input - object of class
-     *                that realise Input
-     *                interface.
-     *                Need to organise
-     *                input.
-     * @param tracker - object of Tracker class
-     *                  that we interact with
-     */
-    public static void addItemToTracker(Input input, Tracker tracker) {
-        System.out.println("=== Add new Item ===");
-        String itemName = StartUI.getInputString("Enter item name: ", input);
-        Item item = new Item(itemName);
-        tracker.add(item);
-    }
-
-    /**
-     * Interact method. Send all
-     * items in tracker to
-     * standard output
-     * @param tracker - object of Tracker class
-     *                  that we interact with
-     */
-    public static void showAllItems(Tracker tracker) {
-        System.out.println("=== Show all items ===");
-        Item[] allItems = tracker.findAll();
-        StartUI.printItems(allItems);
-    }
-
-    /**
-     * Interact mecthod.
-     * Used for edit
-     * item in the Tracker
-     * @param input - object of class
-     *                that realise Input
-     *                interface.
-     *                Need to organise
-     *                input.
-     * @param tracker - object of Tracker class
-     *                  that we interact with
-     */
-    public static void editItemInTracker(Input input, Tracker tracker) {
-        System.out.println("=== Edit item ===");
-        String itemId = StartUI.getInputString("Enter id: ", input);
-        String itemName = StartUI.getInputString("Enter item name: ", input);
-        Item item = new Item(itemName);
-        if (tracker.replace(itemId, item)) {
-            System.out.println("Operation successful!");
-        } else {
-            System.out.println("No such id :(");
-        }
-    }
-
-    /**
-     * Interact mecthod.
-     * Used for deleting
-     * item from the Tracker
-     * @param input - object of class that
-     *                realise Input interface.
-     *                Need to organise
-     *                input.
-     * @param tracker - object of Tracker class
-     *                  that we interact with
-     */
-    public static void deleteItemFromTracker(Input input, Tracker tracker) {
-        System.out.println("=== Delete item ===");
-        String itemId = StartUI.getInputString("Enter id: ", input);
-        if (tracker.delete(itemId)) {
-            System.out.println("Operation successful!");
-        } else {
-            System.out.println("No such id :(");
-        }
-    }
-
-    /**
-     * Interact mecthod.
-     * Used for searching
-     * Item with id
-     * that user enters.
-     * @param input - object of class
-     *                that realise Input
-     *                interface.
-     *                Need to organise
-     *                input.
-     * @param tracker - object of Tracker class
-     *                  that we interact with
-     */
-    public static void findItemById(Input input, Tracker tracker) {
-        System.out.println("=== Find item by id  ===");
-        String itemId = StartUI.getInputString("Enter id: ", input);
-        Item item = tracker.findById(itemId);
-        if (item == null) {
-            System.out.println("No such id");
-        } else {
-            StartUI.printItem(-1, item);
-        }
-    }
-
-    /**
-     * Interact mecthod.
-     * Used for searching
-     * Item's with name
-     * that user enters.
-     * @param input - object of class
-     *                that realise Input
-     *                interface.
-     *                Need to organise
-     *                input.
-     * @param tracker - object of Tracker class
-     *                  that we interact with
-     */
-    public static void findItemsByName(Input input, Tracker tracker) {
-        System.out.println("=== Find item's by name ===");
-        String itemName = StartUI.getInputString("Enter name: ", input);
-        Item[] items = tracker.findByName(itemName);
-        StartUI.printItems(items);
-    }
-
-    /**
      * Interact method. Get from user
      * number of menu item, and
      * do call necessary operation
@@ -258,29 +149,13 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    public static void init(Input input, Tracker tracker) {
+    public static void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
         while (run) {
-            StartUI.showMenu();
-            int select = StartUI.getInputNumberFromDiapason(input, "Select: ", 0, 6);
-            switch (select) {
-                case 0: StartUI.addItemToTracker(input, tracker);
-                        break;
-                case 1: StartUI.showAllItems(tracker);
-                        break;
-                case 2: StartUI.editItemInTracker(input, tracker);
-                        break;
-                case 3: StartUI.deleteItemFromTracker(input, tracker);
-                        break;
-                case 4: StartUI.findItemById(input, tracker);
-                        break;
-                case 5: StartUI.findItemsByName(input, tracker);
-                        break;
-                case 6: System.out.println("=== Exit program ===");
-                        run = false;
-                        break;
-                default: break;
-            }
+            StartUI.showMenu(actions);
+            int select = StartUI.getInputNumberFromDiapason(input,
+                    "Select: ", 0, actions.length - 1);
+            run = actions[select].execute(input, tracker);
             System.out.println();
         }
     }
@@ -295,6 +170,6 @@ public class StartUI {
     public static void main(String[] args) {
         Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        StartUI.init(input, tracker);
+        StartUI.init(input, tracker, StartUI.actions);
     }
 }

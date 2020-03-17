@@ -10,7 +10,7 @@ public class StartUITest {
         String[] answers = {"Fix PC"};
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
-        StartUI.addItemToTracker(input, tracker);
+        StartUI.actions[0].execute(input, tracker);
         Item result = tracker.findAll()[0];
         Item expected = new Item("Fix PC");
         assertThat(result.getName(), is(expected.getName()));
@@ -23,7 +23,7 @@ public class StartUITest {
         tracker.add(item);
         String[] answers = {item.getId(), "replaced Item"};
         Input input = new StubInput(answers);
-        StartUI.editItemInTracker(input, tracker);
+        StartUI.actions[2].execute(input, tracker);
         String result = tracker.findAll()[0].getName();
         String expected = "replaced Item";
         assertThat(result, is(expected));
@@ -36,7 +36,7 @@ public class StartUITest {
         tracker.add(item);
         String[] answers = {item.getId()};
         Input input = new StubInput(answers);
-        StartUI.deleteItemFromTracker(input, tracker);
+        StartUI.actions[3].execute(input, tracker);
         Item[] result = tracker.findAll();
         Item[] expected = new Item[0];
         assertThat(result, is(expected));
