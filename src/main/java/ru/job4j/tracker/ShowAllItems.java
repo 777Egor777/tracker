@@ -1,5 +1,14 @@
 package ru.job4j.tracker;
 
+/**
+ * Menu Item of the
+ * User Interface.
+ * It helps to show
+ * all Items in
+ * the tracker.
+ * @author Geraskin Egor (yegeraskin13@gmail.com)
+ * @version $Id$
+ */
 public class ShowAllItems implements UserAction {
     /**
      * Description of the

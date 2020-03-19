@@ -1,5 +1,13 @@
 package ru.job4j.tracker;
 
+/**
+ * Menu Item of the
+ * User Interface.
+ * It helps to delete
+ * a user from tracker.
+ * @author Geraskin Egor (yegeraskin13@gmail.com)
+ * @version $Id$
+ */
 public class DeleteItem implements UserAction {
     /**
      * Description of the

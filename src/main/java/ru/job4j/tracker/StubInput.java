@@ -26,7 +26,9 @@ public class StubInput implements Input {
      * Strings that we
      * perceive as "input"
      * Strings
-     * @param answers
+     * @param answers - array
+     *                  of user input data.
+     *                  Need for testing
      */
     public StubInput(String[] answers) {
         this.answers = answers;
@@ -58,5 +60,28 @@ public class StubInput implements Input {
     @Override
     public int askInt(String question) {
         return Integer.parseInt(this.askStr(question));
+    }
+
+    /**
+     * Method organize input
+     * of the integer number
+     * from user from
+     * diapason [0;max]
+     *
+     * @param question - message that shows
+     *                 to user before he
+     *                 starts to type
+     * @param max      - upper bound of
+     *                 the diapason
+     * @return integer number
+     * that user enter
+     */
+    @Override
+    public int askInt(String question, int max) {
+        int result = -1;
+        while (!(result >= 0 && result <= max)) {
+            result = askInt(question);
+        }
+        return result;
     }
 }

@@ -112,8 +112,8 @@ public class StartUI {
      */
     public static void printItems(Item[] items) {
         if (items.length > 0) {
-            for (int index = 0; index < items.length; ++index) {
-                StartUI.printItem(items[index]);
+            for (Item item : items) {
+                StartUI.printItem(item);
             }
         } else {
             System.out.println("No items in tracker at the moment!!!");
@@ -137,8 +137,7 @@ public class StartUI {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
-            int select = StartUI.getInputNumberFromDiapason(input,
-                    "Select: ", 0, actions.length - 1);
+            int select = input.askInt("Select: ", actions.length);
             run = actions[select].execute(input, tracker);
             System.out.println();
         }
@@ -152,7 +151,7 @@ public class StartUI {
      * @param args - standard compiler args
      */
     public static void main(String[] args) {
-        Input input = new ConsoleInput();
+        Input input = new ValidateInput();
         Tracker tracker = new Tracker();
         StartUI  UserInterface = new StartUI();
         UserInterface.init(input, tracker, UserInterface.actions);

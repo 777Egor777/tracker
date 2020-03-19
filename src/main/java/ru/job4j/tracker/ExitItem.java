@@ -1,5 +1,13 @@
 package ru.job4j.tracker;
 
+/**
+ * Menu Item of the
+ * User Interface.
+ * It helps to get
+ * out from tracker.
+ * @author Geraskin Egor (yegeraskin13@gmail.com)
+ * @version $Id$
+ */
 public class ExitItem implements UserAction {
     /**
      * Description of the

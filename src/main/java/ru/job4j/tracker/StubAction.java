@@ -1,5 +1,13 @@
 package ru.job4j.tracker;
 
+/**
+ * Implementation of the
+ * UserAction interface.
+ * We use it for
+ * testing.
+ * @author Geraskin Egor (yegeraskin13@gmail.com)
+ * @version $Id$
+ */
 public class StubAction implements UserAction {
     /**
      * true - if method "execute"

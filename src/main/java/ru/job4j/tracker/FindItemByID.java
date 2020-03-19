@@ -1,5 +1,14 @@
 package ru.job4j.tracker;
 
+/**
+ * Menu Item of the
+ * User Interface.
+ * It helps to find
+ * user in tracker
+ * by Id.
+ * @author Geraskin Egor (yegeraskin13@gmail.com)
+ * @version $Id$
+ */
 public class FindItemByID implements UserAction{
 
     /**
