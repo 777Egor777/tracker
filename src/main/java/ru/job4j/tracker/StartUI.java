@@ -93,24 +93,13 @@ public class StartUI {
 
     /**
      * Method print item
-     * with specified
-     * index
-     * @param index - specified index
      * @param item - Item object to
      *               print
      */
-    public static void printItem(int index, Item item) {
-        String result;
-        if (index != -1) {
-            result = String.format("%d. id: \"%s\"%s   name: \"%s\"%s",
-                                   index,
-                                   item.getId(), System.lineSeparator(),
+    public static void printItem(Item item) {
+        String result = String.format("id: \"%s\"  name: \"%s\"%s",
+                                   item.getId(),
                                    item.getName(), System.lineSeparator());
-        } else {
-            result = String.format("id: \"%s\"%sname: \"%s\"%s",
-                                   item.getId(), System.lineSeparator(),
-                                   item.getName(), System.lineSeparator());
-        }
         System.out.print(result);
     }
 
@@ -123,12 +112,10 @@ public class StartUI {
      *                should print
      */
     public static void printItems(Item[] items) {
-        if (items.length > 1) {
+        if (items.length > 0) {
             for (int index = 0; index < items.length; ++index) {
-                StartUI.printItem(index, items[index]);
+                StartUI.printItem(items[index]);
             }
-        } else if (items.length == 1) {
-            StartUI.printItem(-1, items[0]);
         } else {
             System.out.println("No items in tracker at the moment!!!");
         }
