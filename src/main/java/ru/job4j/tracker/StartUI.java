@@ -54,7 +54,6 @@ public class StartUI {
         while (!(result >= start && result <= finish)) {
             result = input.askInt(message);
         }
-        System.out.println();
         return result;
     }
 

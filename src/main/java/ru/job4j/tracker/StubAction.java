@@ -41,7 +41,6 @@ public class StubAction implements UserAction {
      */
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        System.out.println(this.name());
         this.call = true;
         return false;
     }

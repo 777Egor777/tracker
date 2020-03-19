@@ -1,10 +1,18 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.StringJoiner;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
 public class StartUITest {
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
     @Test
     public void whenAddItem() {
         String[] answers = {"Fix PC"};
@@ -53,5 +61,22 @@ public class StartUITest {
         boolean result = action.isCall();
         boolean expected = true;
         assertThat(result, is(expected));
+    }
+
+    @Test
+    public void whenPrintMenu() {
+        System.setOut(new PrintStream(out));
+        StubAction action = new StubAction();
+        UserAction[] actions = new UserAction[]{action};
+        Input input = new StubInput(new String[]{"0"});
+        Tracker tracker = new Tracker();
+        StartUI startUI = new StartUI();
+        startUI.init(input, tracker, actions);
+        String result = new String(out.toByteArray());
+        String expected = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                .add("Menu.").add("0: Stub action").toString();
+        expected+= System.lineSeparator();
+        assertThat(result, is(expected));
+        System.setOut(stdout);
     }
 }

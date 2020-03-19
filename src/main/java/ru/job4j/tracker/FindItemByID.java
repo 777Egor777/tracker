@@ -36,7 +36,7 @@ public class FindItemByID implements UserAction{
         if (item == null) {
             System.out.println("No such id");
         } else {
-            StartUI.printItem(-1, item);
+            StartUI.printItem(item);
         }
         return true;
     }

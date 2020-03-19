@@ -11,29 +11,33 @@ import java.util.StringJoiner;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
-public class FindAllActionTest {
+public class FindItemByNameTest {
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     @Before
-    public void beforeEachTest() {
+    public void doBeforeTests() {
+        out.reset();
         System.setOut(new PrintStream(out));
     }
 
     @After
-    public void afterEachTest() {
+    public void doAFterTests() {
         System.setOut(stdout);
     }
 
     @Test
-    public void execute() {
+    public void whenPrintAllItems() {
         Tracker tracker = new Tracker();
-        Item item = new Item("");
+        Item item = new Item("Egor");
         tracker.add(item);
-        UserAction action = new FindAllAction();
-        Input input = new StubInput(new String[]{});
+        UserAction action = new FindItemByName();
+        Input input = new StubInput(new String[] {"Egor"});
         action.execute(input, tracker);
         String result = new String(out.toByteArray());
-        String expected = new StringJoiner()
+        String expected = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                .add("=== Find item's by name ===").
+                        add("id: \"" + item.getId() + "\"  name: \"" + item.getName() + "\"").toString();
+        assertThat(result, is(expected));
     }
 }
