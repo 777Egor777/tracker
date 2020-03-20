@@ -2,7 +2,7 @@ package ru.job4j.tracker;
 
 /**
  * Decorator to the
- * "ConsoleInput" class.
+ * "**Input" class.
  * Class realise Input
  * interface. All methods are
  * use console input
