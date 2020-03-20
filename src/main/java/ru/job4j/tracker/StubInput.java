@@ -78,9 +78,9 @@ public class StubInput implements Input {
      */
     @Override
     public int askInt(String question, int max) {
-        int result = -1;
-        while (!(result >= 0 && result <= max)) {
-            result = askInt(question);
+        int result = askInt(question);
+        if (!(result >= 0 && result < max)) {
+            throw new IllegalArgumentException(String.format("Number not from diapason [%d:%d)", 0, max));
         }
         return result;
     }
