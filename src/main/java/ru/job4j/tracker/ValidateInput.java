@@ -32,7 +32,7 @@ public class ValidateInput extends ConsoleInput {
         do {
             try {
                 result = super.askInt(question);
-                if (result <= max && result >= 0) {
+                if (result < max && result >= 0) {
                     invalid = false;
                 } else {
                     System.out.println(String.format("Please enter number from %d to %d", 0, max));

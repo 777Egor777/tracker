@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Egor Geraskin (yegeraskin13@gmail.com)
  * @version 1.0
  */
-public class ConsoleInput implements Input {
+public class ConsoleInput extends CommonInput {
     /**
      * java.util.Scanner object
      * We need this field
@@ -35,7 +35,7 @@ public class ConsoleInput implements Input {
     @Override
     public String askStr(String question) {
         System.out.print(question);
-        return scanner.nextLine();
+        return nextLine();
     }
 
     /**
@@ -78,5 +78,17 @@ public class ConsoleInput implements Input {
             throw  new IllegalStateException(String.format("Number out of bounds [%d, %d)", 0, max));
         }
         return result;
+    }
+
+    /**
+     * Base method that
+     * return newLine
+     * from console
+     * @return new line from
+     *         console
+     */
+    @Override
+    public String nextLine() {
+        return scanner.nextLine();
     }
 }

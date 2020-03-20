@@ -8,7 +8,7 @@ package ru.job4j.tracker;
  * @author Egor Geraskin (yegeraskin13@gmail.com)
  * @version 1.0
  */
-public class StubInput implements Input {
+public class StubInput extends CommonInput {
     /**
      * We consider this strings
      * as "input" from user
@@ -45,7 +45,7 @@ public class StubInput implements Input {
      */
     @Override
     public String askStr(String question) {
-        return this.answers[this.position++];
+        return nextLine();
     }
 
     /**
@@ -83,5 +83,18 @@ public class StubInput implements Input {
             result = askInt(question);
         }
         return result;
+    }
+
+    /**
+     * Base method that
+     * return newLine
+     * from data array
+     * @return next line
+     *         from data
+     *         array
+     */
+    @Override
+    public String nextLine() {
+        return answers[position++];
     }
 }
