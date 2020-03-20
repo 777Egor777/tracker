@@ -8,7 +8,7 @@ package ru.job4j.tracker;
  * @author Egor Geraskin (yegeraskin13@gmail.com)
  * @version 1.0
  */
-public class StubInput extends CommonInput {
+public class StubInput implements Input {
     /**
      * We consider this strings
      * as "input" from user

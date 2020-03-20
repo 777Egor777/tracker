@@ -9,6 +9,15 @@ package ru.job4j.tracker;
  */
 public interface Input {
     /**
+     * Base method that
+     * return newLine
+     * from this type of
+     * Input that we use
+     * @return new line
+     */
+    String nextLine();
+
+    /**
      * Method organize input
      * of the String from user
      * @param question - message that shows

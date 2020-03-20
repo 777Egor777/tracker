@@ -27,7 +27,7 @@ public class ValidateInputTest {
 
     @Test
     public void whenInvalidInput() {
-        ValidateInput input = new ValidateStubInput(new String[]{"one", "1"});
+        Input input = new ValidateInput(new StubInput(new String[]{"one", "1"}));
         input.askInt("Select: ", 2);
         String result = new String(out.toByteArray());
         String expected = "Please enter correct integer number!" + System.lineSeparator();
@@ -36,7 +36,7 @@ public class ValidateInputTest {
 
     @Test
     public void whenMaxNumberInput() {
-        ValidateInput input = new ValidateStubInput(new String[]{"one", "6"});
+        Input input = new ValidateInput(new StubInput(new String[]{"one", "6"}));
         input.askInt("Select: ", 7);
         String result = new String(out.toByteArray());
         String expected = "Please enter correct integer number!" + System.lineSeparator();

@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Egor Geraskin (yegeraskin13@gmail.com)
  * @version 1.0
  */
-public class ConsoleInput extends CommonInput {
+public class ConsoleInput implements Input {
     /**
      * java.util.Scanner object
      * We need this field
