@@ -8,17 +8,13 @@ public class Vending {
         int[] result = new int[100];
         int size = 0;
         money -= price;
+        int indexOfCoin = 0;
         while (money > 0) {
-            forblock:
-            {
-                for (int index = 0; index < coins.length; ++index) {
-                    if (coins[index] <= money) {
-                        money -= coins[index];
-                        result[size++] = coins[index];
-                        break forblock;
-                    }
-                }
+            while (coins[indexOfCoin] > money) {
+                indexOfCoin++;
             }
+            money -= coins[indexOfCoin];
+            result[size++] = coins[indexOfCoin];
         }
         return Arrays.copyOf(result, size);
     }

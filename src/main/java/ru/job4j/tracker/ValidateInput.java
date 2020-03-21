@@ -98,9 +98,9 @@ public class ValidateInput implements Input {
                     System.out.println(String.format("Please enter number from %d to %d", 0, max));
                 }
             } catch (NumberFormatException ex) {
-                System.out.println("Please enter correct integer number!");
+                System.out.println(ex.getMessage());
             } catch (Exception ex) {
-                System.out.println("Please enter correct number!");
+                System.out.println(ex.getMessage());
             }
         } while(invalid);
         return result;
