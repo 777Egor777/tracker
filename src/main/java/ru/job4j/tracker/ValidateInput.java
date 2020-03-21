@@ -91,14 +91,8 @@ public class ValidateInput implements Input {
         boolean invalid = true;
         do {
             try {
-                result = input.askInt(question);
-                if (result < max && result >= 0) {
-                    invalid = false;
-                } else {
-                    System.out.println(String.format("Please enter number from %d to %d", 0, max));
-                }
-            } catch (NumberFormatException ex) {
-                System.out.println(ex.getMessage());
+                result = input.askInt(question, max);
+                invalid = false;
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }

@@ -27,10 +27,10 @@ public class ValidateInputTest {
 
     @Test
     public void whenInvalidInput() {
-        Input input = new ValidateInput(new StubInput(new String[]{"one", "1"}));
+        Input input = new ValidateInput(new StubInput(new String[]{"2", "1"}));
         input.askInt("Select: ", 2);
         String result = new String(out.toByteArray());
-        String expected = "Please enter correct integer number!" + System.lineSeparator();
+        String expected = "Number not from diapason [0:2)" + System.lineSeparator();
         assertThat(result, is(expected));
     }
 
@@ -39,7 +39,7 @@ public class ValidateInputTest {
         Input input = new ValidateInput(new StubInput(new String[]{"one", "6"}));
         input.askInt("Select: ", 7);
         String result = new String(out.toByteArray());
-        String expected = "Please enter correct integer number!" + System.lineSeparator();
+        String expected = "This is not an Integer number." + System.lineSeparator();
         assertThat(result, is(expected));
     }
 }

@@ -59,7 +59,13 @@ public class StubInput implements Input {
      */
     @Override
     public int askInt(String question) {
-        return Integer.parseInt(this.askStr(question));
+        int result = 0;
+        try {
+            result = Integer.parseInt(askStr(question));
+        } catch(Exception ex) {
+            throw new IllegalStateException("This is not an Integer number.");
+        }
+        return result;
     }
 
     /**
