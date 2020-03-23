@@ -40,7 +40,7 @@ public class FindItemByID implements UserAction{
     @Override
     public boolean execute(Input input, Tracker tracker) {
         System.out.println(this.name());
-        String itemId = StartUI.getInputString("Enter id: ", input);
+        String itemId = input.askStr("Enter id: ");
         Item item = tracker.findById(itemId);
         if (item == null) {
             System.out.println("No such id");

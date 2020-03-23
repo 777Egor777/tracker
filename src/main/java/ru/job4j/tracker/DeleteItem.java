@@ -36,7 +36,7 @@ public class DeleteItem implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         System.out.println(this.name());
-        String itemId = StartUI.getInputString("Enter id: ", input);
+        String itemId = input.askStr("Enter id: ");
         if (tracker.delete(itemId)) {
             System.out.println("Operation successful!");
         } else {

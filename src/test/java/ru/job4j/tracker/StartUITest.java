@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
 
 import static org.junit.Assert.*;
@@ -15,11 +18,11 @@ public class StartUITest {
 
     @Test
     public void whenAddItem() {
-        String[] answers = {"Fix PC"};
+        List<String> answers = new ArrayList(Arrays.asList("Fix PC"));
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
-        new StartUI().actions[0].execute(input, tracker);
-        Item result = tracker.findAll()[0];
+        new StartUI().actions.get(0).execute(input, tracker);
+        Item result = tracker.findAll().get(0);
         Item expected = new Item("Fix PC");
         assertThat(result.getName(), is(expected.getName()));
     }
@@ -29,10 +32,10 @@ public class StartUITest {
         Item item = new Item("Fix PC");
         Tracker tracker = new Tracker();
         tracker.add(item);
-        String[] answers = {item.getId(), "replaced Item"};
+        List<String> answers = new ArrayList(Arrays.asList(item.getId(), "replaced Item"));
         Input input = new StubInput(answers);
-        new StartUI().actions[2].execute(input, tracker);
-        String result = tracker.findAll()[0].getName();
+        new StartUI().actions.get(2).execute(input, tracker);
+        String result = tracker.findAll().get(0).getName();
         String expected = "replaced Item";
         assertThat(result, is(expected));
     }
@@ -42,19 +45,19 @@ public class StartUITest {
         Item item = new Item("Fix PC");
         Tracker tracker = new Tracker();
         tracker.add(item);
-        String[] answers = {item.getId()};
+        List<String> answers = new ArrayList(Arrays.asList(item.getId()));
         Input input = new StubInput(answers);
-        new StartUI().actions[3].execute(input, tracker);
-        Item[] result = tracker.findAll();
-        Item[] expected = new Item[0];
+        new StartUI().actions.get(3).execute(input, tracker);
+        List<Item> result = tracker.findAll();
+        List<Item> expected = new ArrayList<>();
         assertThat(result, is(expected));
     }
 
     @Test
     public void init() {
         StubAction action = new StubAction();
-        UserAction[] actions = new StubAction[]{action};
-        Input input = new StubInput(new String[]{"0"});
+        List<UserAction> actions = Arrays.asList(action);
+        Input input = new StubInput(new ArrayList(Arrays.asList("0")));
         Tracker tracker = new Tracker();
         StartUI startUI = new StartUI();
         startUI.init(input, tracker, actions);
@@ -65,10 +68,11 @@ public class StartUITest {
 
     @Test
     public void whenPrintMenu() {
+        out.reset();
         System.setOut(new PrintStream(out));
         StubAction action = new StubAction();
-        UserAction[] actions = new UserAction[]{action};
-        Input input = new StubInput(new String[]{"0"});
+        List<UserAction> actions = Arrays.asList(action);
+        Input input = new StubInput(new ArrayList(Arrays.asList("0")));
         Tracker tracker = new Tracker();
         StartUI startUI = new StartUI();
         startUI.init(input, tracker, actions);

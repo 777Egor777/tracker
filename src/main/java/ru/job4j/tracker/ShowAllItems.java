@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Menu Item of the
  * User Interface.
@@ -33,7 +35,7 @@ public class ShowAllItems implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         System.out.println(this.name());
-        Item[] allItems = tracker.findAll();
+        List<Item> allItems = tracker.findAll();
         StartUI.printItems(allItems);
         return true;
     }

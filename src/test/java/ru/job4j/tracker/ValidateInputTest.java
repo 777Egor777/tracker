@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
@@ -27,7 +29,7 @@ public class ValidateInputTest {
 
     @Test
     public void whenInvalidInput() {
-        Input input = new ValidateInput(new StubInput(new String[]{"2", "1"}));
+        Input input = new ValidateInput(new StubInput(new ArrayList(Arrays.asList("2", "1"))));
         input.askInt("Select: ", 2);
         String result = new String(out.toByteArray());
         String expected = "Number not from diapason [0:2)" + System.lineSeparator();
@@ -36,7 +38,7 @@ public class ValidateInputTest {
 
     @Test
     public void whenMaxNumberInput() {
-        Input input = new ValidateInput(new StubInput(new String[]{"one", "6"}));
+        Input input = new ValidateInput(new StubInput(new ArrayList(Arrays.asList("one", "6"))));
         input.askInt("Select: ", 7);
         String result = new String(out.toByteArray());
         String expected = "This is not an Integer number." + System.lineSeparator();

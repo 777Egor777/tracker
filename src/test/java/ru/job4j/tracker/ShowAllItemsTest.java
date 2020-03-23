@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.StringJoiner;
 
 import static org.junit.Assert.*;
@@ -32,7 +33,7 @@ public class ShowAllItemsTest {
         Item item = new Item("Egor");
         tracker.add(item);
         UserAction action = new ShowAllItems();
-        Input input = new StubInput(new String[] {""});
+        Input input = new StubInput(Arrays.asList(""));
         action.execute(input, tracker);
         String result = new String(out.toByteArray());
         String expected = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())

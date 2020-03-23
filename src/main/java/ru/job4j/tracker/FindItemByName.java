@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Menu Item of the
  * User Interface.
@@ -39,8 +41,8 @@ public class FindItemByName implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         System.out.println("=== Find item's by name ===");
-        String itemName = StartUI.getInputString("Enter name: ", input);
-        Item[] items = tracker.findByName(itemName);
+        String itemName = input.askStr("Enter name: ");
+        List<Item> items = tracker.findByName(itemName);
         StartUI.printItems(items);
         return true;
     }

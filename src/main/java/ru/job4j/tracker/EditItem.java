@@ -38,8 +38,8 @@ public class EditItem implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         System.out.println(this.name());
-        String itemId = StartUI.getInputString("Enter id: ", input);
-        String itemName = StartUI.getInputString("Enter item name: ", input);
+        String itemId = input.askStr("Enter id: ");
+        String itemName = input.askStr("Enter item name: ");
         Item item = new Item(itemName);
         if (tracker.replace(itemId, item)) {
             System.out.println("Operation successful!");

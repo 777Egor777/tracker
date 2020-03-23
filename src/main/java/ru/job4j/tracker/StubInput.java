@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Realisation of the
  * Input interface.
@@ -13,13 +15,7 @@ public class StubInput implements Input {
      * We consider this strings
      * as "input" from user
      */
-    private String[] answers;
-
-    /**
-     * Current position in
-     * "answers" array.
-     */
-    private int position = 0;
+    private List<String> answers;
 
     /**
      * Constructor accept
@@ -30,7 +26,7 @@ public class StubInput implements Input {
      *                  of user input data.
      *                  Need for testing
      */
-    public StubInput(String[] answers) {
+    public StubInput(List<String> answers) {
         this.answers = answers;
     }
 
@@ -101,6 +97,6 @@ public class StubInput implements Input {
      */
     @Override
     public String nextLine() {
-        return answers[position++];
+        return answers.remove(0);
     }
 }

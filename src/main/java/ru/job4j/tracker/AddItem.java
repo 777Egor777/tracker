@@ -38,7 +38,7 @@ public class AddItem implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         System.out.println(this.name());
-        String itemName = StartUI.getInputString("Enter item name: ", input);
+        String itemName = input.askStr("Enter item name: ");
         Item item = new Item(itemName);
         tracker.add(item);
         return true;

@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringJoiner;
 
 import static org.junit.Assert.*;
@@ -32,7 +34,7 @@ public class FindItemByNameTest {
         Item item = new Item("Egor");
         tracker.add(item);
         UserAction action = new FindItemByName();
-        Input input = new StubInput(new String[] {"Egor"});
+        Input input = new StubInput(new ArrayList(Arrays.asList("Egor")));
         action.execute(input, tracker);
         String result = new String(out.toByteArray());
         String expected = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
