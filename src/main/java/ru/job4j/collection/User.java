@@ -43,10 +43,12 @@ public class User implements Comparable<User> {
     @Override
     public int compareTo(User o) {
         int result = 1;
-        if (Objects.equals(this, o)) {
+        int nameCmp = name.compareTo(o.getName());
+        int ageCmp = Integer.compare(age, o.getAge());
+        if (nameCmp == 0 && ageCmp == 0) {
             result = 0;
-        } else if (name.compareTo(o.getName()) < 0 ||
-                (name.compareTo(o.getName()) == 0 && age < o.getAge() )) {
+        } else if (nameCmp < 0 ||
+                (nameCmp == 0 && ageCmp < 0 )) {
             result = -1;
         }
         return result;
