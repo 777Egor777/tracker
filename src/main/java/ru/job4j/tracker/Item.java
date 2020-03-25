@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.Objects;
+
 /**
  * Business model of the request
  * @author Egor Geraskin (yegeraskin13@gmail.com)
@@ -57,5 +59,26 @@ public class Item {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = false;
+        if (obj != null && obj.getClass() == getClass()) {
+            Item item = (Item)obj;
+            result = Objects.equals(id, item.id) &&
+                    Objects.equals(name, item.name);
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Item{id='%s', name='%s'}", id, name);
     }
 }
