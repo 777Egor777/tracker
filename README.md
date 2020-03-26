@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/777Egor777/tracker.svg?branch=master)](https://travis-ci.org/777Egor777/tracker)
+[![codecov](https://codecov.io/gh/777Egor777/tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/777Egor777/tracker)
+
 # tracker
 
 Проект "Трекер"
