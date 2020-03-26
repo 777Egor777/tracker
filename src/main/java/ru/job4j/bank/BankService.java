@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class BankService {
+    public final static User emptyUser = new User("#####EMPTY#####12321", "#####EMPTY#####12321");
+    public final static Account emptyAccount = new Account("#####EMPTY#####12321", 0D);
+
     private Map<User, List<Account>> users = new HashMap<>();
 
     public void addUser(User user) {
@@ -14,7 +17,7 @@ public class BankService {
 
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
-        if (user.getPassport().equals("plug")) {
+        if (user.equals(emptyUser)) {
             // TODO if such user not exist
         } else {
             List<Account> list = users.get(user);
@@ -27,7 +30,7 @@ public class BankService {
     }
 
     public User findByPassport(String passport) {
-        User result = new User("plug", "plug");
+        User result = emptyUser;
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
                 result = user;
@@ -38,9 +41,9 @@ public class BankService {
     }
 
     public Account findByRequisite(String passport, String requisite) {
-        Account result = new Account("plug", 0D);
+        Account result = emptyAccount;
         User user = findByPassport(passport);
-        if (!user.getPassport().equals("plug")) {
+        if (!user.equals(emptyUser)) {
             List<Account> accounts = users.get(user);
             int index = accounts.indexOf(new Account(requisite, 0D));
             if (index >= 0) {
@@ -56,7 +59,7 @@ public class BankService {
         boolean result = false;
         User src = findByPassport(srcPassport);
         User dest = findByPassport(destPassport);
-        if (src.getPassport().equals("plug") || dest.getPassport().equals("plug")) {
+        if (src.equals(emptyUser) || dest.equals(emptyUser)) {
             // TODO if no such users
         } else {
             List<Account> srcAccList = users.get(src);
