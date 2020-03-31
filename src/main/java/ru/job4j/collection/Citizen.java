@@ -28,7 +28,7 @@ public class Citizen {
     public boolean equals(Object obj) {
         boolean result = false;
         if (obj != null && obj.getClass() == getClass()) {
-            Citizen citizen = (Citizen)obj;
+            Citizen citizen = (Citizen) obj;
             result = Objects.equals(passport, citizen.passport);
         }
         return result;

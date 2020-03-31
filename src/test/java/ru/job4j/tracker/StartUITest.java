@@ -79,7 +79,7 @@ public class StartUITest {
         String result = new String(out.toByteArray());
         String expected = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.").add("0: Stub action").toString();
-        expected+= System.lineSeparator();
+        expected += System.lineSeparator();
         assertThat(result, is(expected));
         System.setOut(stdout);
     }

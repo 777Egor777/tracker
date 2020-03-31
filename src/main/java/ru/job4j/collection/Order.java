@@ -30,9 +30,9 @@ public class Order {
     public boolean equals(Object obj) {
         boolean result = false;
         if (obj != null && obj.getClass() == getClass()) {
-            Order order = (Order)obj;
-            result = Objects.equals(number, order.number) &&
-                    Objects.equals(name, order.name);
+            Order order = (Order) obj;
+            result = Objects.equals(number, order.number)
+                    && Objects.equals(name, order.name);
         }
         return result;
     }

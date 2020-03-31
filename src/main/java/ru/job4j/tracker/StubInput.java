@@ -58,7 +58,7 @@ public class StubInput implements Input {
         int result = 0;
         try {
             result = Integer.parseInt(askStr(question));
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             throw new IllegalStateException("This is not an Integer number.");
         }
         return result;

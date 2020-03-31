@@ -28,9 +28,9 @@ public class User implements Comparable<User> {
     public boolean equals(Object obj) {
         boolean result = false;
         if (obj != null && obj.getClass() == getClass()) {
-            User user = (User)obj;
-            result = Objects.equals(name, user.getName()) &&
-                     age == user.getAge();
+            User user = (User) obj;
+            result = Objects.equals(name, user.getName())
+                    && age == user.getAge();
         }
         return result;
     }

@@ -44,7 +44,7 @@ public class BankServiceTest {
         BankService service = new BankService();
         service.addUser(user);
         User result = service.findByPassport("##asdd1122");
-        User expected = BankService.emptyUser;
+        User expected = BankService.EMPTY_USER;
         assertThat(result, is(expected));
     }
 
@@ -68,7 +68,7 @@ public class BankServiceTest {
         Account account = new Account("12123123121123132", 102.2);
         service.addAccount(user.getPassport(), account);
         Account result = service.findByRequisite(user.getPassport(), "ghjfg fghaer123");
-        Account expected = BankService.emptyAccount;
+        Account expected = BankService.EMPTY_ACCOUNT;
         assertThat(result, is(expected));
     }
 

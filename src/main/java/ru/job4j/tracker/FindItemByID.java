@@ -9,7 +9,7 @@ package ru.job4j.tracker;
  * @author Geraskin Egor (yegeraskin13@gmail.com)
  * @version $Id$
  */
-public class FindItemByID implements UserAction{
+public class FindItemByID implements UserAction {
 
     /**
      * Description of the

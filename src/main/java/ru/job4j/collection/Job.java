@@ -28,9 +28,9 @@ public class Job implements Comparable<Job> {
     public boolean equals(Object obj) {
         boolean result = false;
         if (obj != null && obj.getClass() == getClass()) {
-            Job job = (Job)obj;
-            result = Objects.equals(name, job.getName()) &&
-                    priority == job.getPriority();
+            Job job = (Job) obj;
+            result = Objects.equals(name, job.getName())
+                    && priority == job.getPriority();
         }
         return result;
     }

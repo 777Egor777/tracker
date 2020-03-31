@@ -70,9 +70,9 @@ public class Item {
     public boolean equals(Object obj) {
         boolean result = false;
         if (obj != null && obj.getClass() == getClass()) {
-            Item item = (Item)obj;
-            result = Objects.equals(id, item.id) &&
-                    Objects.equals(name, item.name);
+            Item item = (Item) obj;
+            result = Objects.equals(id, item.id)
+                    && Objects.equals(name, item.name);
         }
         return result;
     }

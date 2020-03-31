@@ -36,7 +36,7 @@ public class User {
     public boolean equals(Object obj) {
         boolean result = false;
         if (obj != null && obj.getClass() == getClass()) {
-            User user = (User)obj;
+            User user = (User) obj;
             result = Objects.equals(passport, user.getPassport());
         }
         return result;

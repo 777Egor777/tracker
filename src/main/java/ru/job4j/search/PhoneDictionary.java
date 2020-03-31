@@ -10,10 +10,10 @@ public class PhoneDictionary {
     }
 
     private boolean contains(Person person, String key) {
-        return person.getName().contains(key) ||
-               person.getSurname().contains(key) ||
-               person.getAddress().contains(key) ||
-               person.getPhone().contains(key);
+        return person.getName().contains(key)
+                || person.getSurname().contains(key)
+                || person.getAddress().contains(key)
+                || person.getPhone().contains(key);
 
     }
 

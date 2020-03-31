@@ -36,7 +36,7 @@ public class Account {
     public boolean equals(Object obj) {
         boolean result = false;
         if (obj != null && obj.getClass() == getClass()) {
-            Account account = (Account)obj;
+            Account account = (Account) obj;
             result = Objects.equals(account.getRequisite(), requisite);
         }
         return result;

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class BankService {
-    public final static User emptyUser = new User("#####EMPTY#####12321", "#####EMPTY#####12321");
-    public final static Account emptyAccount = new Account("#####EMPTY#####12321", 0D);
+    public final static User EMPTY_USER = new User("#####EMPTY#####12321", "#####EMPTY#####12321");
+    public final static Account EMPTY_ACCOUNT = new Account("#####EMPTY#####12321", 0D);
 
     private Map<User, List<Account>> users = new HashMap<>();
 
@@ -17,12 +17,14 @@ public class BankService {
 
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
-        if (user.equals(emptyUser)) {
+        if (user.equals(EMPTY_USER)) {
             // TODO if such user not exist
+            throw new IllegalStateException("No such User");
         } else {
             List<Account> list = users.get(user);
             if (list.indexOf(account) >= 0) {
                 // TODO if such account already exist
+                throw new IllegalStateException("Such Account already exist");
             } else {
                 list.add(account);
             }
@@ -30,7 +32,7 @@ public class BankService {
     }
 
     public User findByPassport(String passport) {
-        User result = emptyUser;
+        User result = EMPTY_USER;
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
                 result = user;
@@ -41,9 +43,9 @@ public class BankService {
     }
 
     public Account findByRequisite(String passport, String requisite) {
-        Account result = emptyAccount;
+        Account result = EMPTY_ACCOUNT;
         User user = findByPassport(passport);
-        if (!user.equals(emptyUser)) {
+        if (!user.equals(EMPTY_USER)) {
             List<Account> accounts = users.get(user);
             int index = accounts.indexOf(new Account(requisite, 0D));
             if (index >= 0) {
@@ -59,8 +61,9 @@ public class BankService {
         boolean result = false;
         User src = findByPassport(srcPassport);
         User dest = findByPassport(destPassport);
-        if (src.equals(emptyUser) || dest.equals(emptyUser)) {
+        if (src.equals(EMPTY_USER) || dest.equals(EMPTY_USER)) {
             // TODO if no such users
+            throw new IllegalStateException("No such User's");
         } else {
             List<Account> srcAccList = users.get(src);
             List<Account> destAccList = users.get(dest);
@@ -68,11 +71,13 @@ public class BankService {
             int destAccIndex = destAccList.indexOf(new Account(destRequisite, 0D));
             if (srcAccIndex == -1 || destAccIndex == -1) {
                 // TODO if no such accounts
+                throw new IllegalStateException("No such Account's");
             } else {
                 Account srcAcc = srcAccList.get(srcAccIndex);
                 Account destAcc = destAccList.get(destAccIndex);
                 if (Double.compare(srcAcc.getBalance(), amount) < 0) {
                     // TODO if not so much money on balance
+                    throw new IllegalStateException("Not enough money on balance");
                 } else {
                     srcAcc.setBalance(srcAcc.getBalance() - amount);
                     destAcc.setBalance(destAcc.getBalance() + amount);

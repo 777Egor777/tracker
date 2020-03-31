@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UniqueText {
-    public static boolean isEquals(String originText, String duplicateText  ) {
+    public static boolean isEquals(String originText, String duplicateText) {
         boolean result = true;
         String[] origin = originText.split(" ");
         String[] duplicate = duplicateText.split(" ");

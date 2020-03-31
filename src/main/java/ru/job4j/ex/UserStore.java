@@ -37,7 +37,7 @@ public class UserStore {
         }  catch (UserInvalidException userInvalidEx) {
             System.out.println("User is not valid!");
             userInvalidEx.printStackTrace();
-        } catch(UserNotFoundException userNotFoundEx) {
+        } catch (UserNotFoundException userNotFoundEx) {
             System.out.println("User is not found!");
             userNotFoundEx.printStackTrace();
         }

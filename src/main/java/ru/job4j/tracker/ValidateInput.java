@@ -96,7 +96,7 @@ public class ValidateInput implements Input {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
-        } while(invalid);
+        } while (invalid);
         return result;
     }
 }
