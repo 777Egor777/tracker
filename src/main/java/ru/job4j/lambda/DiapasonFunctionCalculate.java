@@ -9,7 +9,7 @@ public class DiapasonFunctionCalculate {
     public static List<Double> diapason(int start, int end, Function<Double, Double> func) {
         List<Double> list = new ArrayList<>();
         Consumer<Double> addToListConsumer = list::add;
-        for(int index = start; index <= end; ++index) {
+        for (int index = start; index <= end; ++index) {
             addToListConsumer.accept(func.apply((double) index));
         }
         return list;

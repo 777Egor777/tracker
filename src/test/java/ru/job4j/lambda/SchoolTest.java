@@ -28,8 +28,8 @@ public class SchoolTest {
                 new Student(77),
                 new Student(100)
         );
-        Predicate<Student> predicate = (student) -> student.getScore() >= 70 &&
-                                                    student.getScore() <= 100;
+        Predicate<Student> predicate = (student) -> student.getScore() >= 70
+                                                 && student.getScore() <= 100;
         List<Student> result = school.collect(students, predicate);
         assertThat(result, is(expected));
     }
@@ -54,8 +54,8 @@ public class SchoolTest {
                 new Student(66),
                 new Student(52)
         );
-        Predicate<Student> predicate = (student) -> student.getScore() >= 50 &&
-                student.getScore() < 70;
+        Predicate<Student> predicate = (student) -> student.getScore() >= 50
+                                                 && student.getScore() < 70;
         List<Student> result = school.collect(students, predicate);
         assertThat(result, is(expected));
     }
@@ -79,8 +79,8 @@ public class SchoolTest {
                 new Student(2),
                 new Student(33)
         );
-        Predicate<Student> predicate = (student) -> student.getScore() > 0 &&
-                student.getScore() < 50;
+        Predicate<Student> predicate = (student) -> student.getScore() > 0
+                                                 && student.getScore() < 50;
         List<Student> result = school.collect(students, predicate);
         assertThat(result, is(expected));
     }
