@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
 public class SchoolTest {
-    public static final List<Student> students = List.of(
+    public static final List<Student> STUDENTS = List.of(
             new Student(77),
             new Student(10),
             new Student(100),
@@ -30,7 +30,7 @@ public class SchoolTest {
         );
         Predicate<Student> predicate = (student) -> student.getScore() >= 70
                                                  && student.getScore() <= 100;
-        List<Student> result = school.collect(students, predicate);
+        List<Student> result = school.collect(STUDENTS, predicate);
         assertThat(result, is(expected));
     }
 
@@ -45,7 +45,7 @@ public class SchoolTest {
         );
         Predicate<Student> predicate = (student) -> student.getScore() >= 50
                                                  && student.getScore() < 70;
-        List<Student> result = school.collect(students, predicate);
+        List<Student> result = school.collect(STUDENTS, predicate);
         assertThat(result, is(expected));
     }
 
@@ -59,7 +59,7 @@ public class SchoolTest {
         );
         Predicate<Student> predicate = (student) -> student.getScore() > 0
                                                  && student.getScore() < 50;
-        List<Student> result = school.collect(students, predicate);
+        List<Student> result = school.collect(STUDENTS, predicate);
         assertThat(result, is(expected));
     }
 }
