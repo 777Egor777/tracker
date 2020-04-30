@@ -9,21 +9,21 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
 public class SchoolTest {
+    public static final List<Student> students = List.of(
+            new Student(77),
+            new Student(10),
+            new Student(100),
+            new Student(50),
+            new Student(2),
+            new Student(33),
+            new Student(55),
+            new Student(66),
+            new Student(52)
+    );
 
     @Test
     public void collectWhen70To100() {
         School school = new School();
-        List<Student> students = List.of(
-                new Student(77),
-                new Student(10),
-                new Student(100),
-                new Student(50),
-                new Student(2),
-                new Student(33),
-                new Student(55),
-                new Student(66),
-                new Student(52)
-        );
         List<Student> expected = List.of(
                 new Student(77),
                 new Student(100)
@@ -37,17 +37,6 @@ public class SchoolTest {
     @Test
     public void collectWhen50To70() {
         School school = new School();
-        List<Student> students = List.of(
-                new Student(77),
-                new Student(10),
-                new Student(100),
-                new Student(50),
-                new Student(2),
-                new Student(33),
-                new Student(55),
-                new Student(66),
-                new Student(52)
-        );
         List<Student> expected = List.of(
                 new Student(50),
                 new Student(55),
@@ -63,17 +52,6 @@ public class SchoolTest {
     @Test
     public void collectWhen0To50() {
         School school = new School();
-        List<Student> students = List.of(
-                new Student(77),
-                new Student(10),
-                new Student(100),
-                new Student(50),
-                new Student(2),
-                new Student(33),
-                new Student(55),
-                new Student(66),
-                new Student(52)
-        );
         List<Student> expected = List.of(
                 new Student(10),
                 new Student(2),
