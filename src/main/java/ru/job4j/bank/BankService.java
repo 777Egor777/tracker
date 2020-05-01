@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BankService {
     public final static User EMPTY_USER = new User("#####EMPTY#####12321", "#####EMPTY#####12321");
@@ -22,7 +23,7 @@ public class BankService {
             throw new IllegalStateException("No such User");
         } else {
             List<Account> list = users.get(user);
-            if (list.indexOf(account) >= 0) {
+            if (list.contains(account)) {
                 // TODO if such account already exist
                 throw new IllegalStateException("Such Account already exist");
             } else {
@@ -33,11 +34,9 @@ public class BankService {
 
     public User findByPassport(String passport) {
         User result = EMPTY_USER;
-        for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                result = user;
-                break;
-            }
+        List<User> goodUsers = users.keySet().stream().filter(x -> x.getPassport().equals(passport)).collect(Collectors.toList());
+        if (!goodUsers.isEmpty()) {
+            result = goodUsers.get(0);
         }
         return result;
     }
