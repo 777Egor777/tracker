@@ -29,8 +29,8 @@ public class Student implements Comparable<Student> {
         boolean result = false;
         if (obj != null && getClass() == obj.getClass()) {
             Student student = (Student) obj;
-            result = name.equals(student.name) &&
-                     scope == student.scope;
+            result = name.equals(student.name)
+                    && scope == student.scope;
         }
         return result;
     }
