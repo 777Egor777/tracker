@@ -33,12 +33,8 @@ public class BankService {
     }
 
     public User findByPassport(String passport) {
-        User result = EMPTY_USER;
-        List<User> goodUsers = users.keySet().stream().filter(x -> x.getPassport().equals(passport)).collect(Collectors.toList());
-        if (!goodUsers.isEmpty()) {
-            result = goodUsers.get(0);
-        }
-        return result;
+        return users.keySet().stream().filter(x -> x.getPassport().equals(passport)).
+                findFirst().orElse(EMPTY_USER);
     }
 
     public Account findByRequisite(String passport, String requisite) {

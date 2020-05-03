@@ -14,7 +14,7 @@ public class MainTest {
                 {4, 1},
                 {2, 3}
         };
-        List<Integer> result= Main.collect(nums);
+        List<Integer> result = Main.collect(nums);
         List<Integer> expected = List.of(4, 1, 2, 3);
         assertThat(result, is(expected));
     }
