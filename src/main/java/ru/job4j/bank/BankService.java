@@ -1,10 +1,8 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class BankService {
     public final static User EMPTY_USER = new User("#####EMPTY#####12321", "#####EMPTY#####12321");
@@ -41,11 +39,8 @@ public class BankService {
         Account result = EMPTY_ACCOUNT;
         User user = findByPassport(passport);
         if (!user.equals(EMPTY_USER)) {
-            List<Account> accounts = users.get(user);
-            int index = accounts.indexOf(new Account(requisite, 0D));
-            if (index >= 0) {
-                result = accounts.get(index);
-            }
+            result = Stream.of(user).map(x -> users.get(x)).flatMap(Collection::stream).filter(x -> x.getRequisite().equals(requisite))
+                    .findFirst().orElse(EMPTY_ACCOUNT);
         }
         return result;
     }
