@@ -65,12 +65,10 @@ public class BankService {
             } else {
                 Account srcAcc = srcAccList.get(srcAccIndex);
                 Account destAcc = destAccList.get(destAccIndex);
-                if (Double.compare(srcAcc.getBalance(), amount) < 0) {
-                    // TODO if not so much money on balance
-                    throw new IllegalStateException("Not enough money on balance");
-                } else {
+                if (Double.compare(srcAcc.getBalance(), amount) >= 0) {
                     srcAcc.setBalance(srcAcc.getBalance() - amount);
                     destAcc.setBalance(destAcc.getBalance() + amount);
+                    result = true;
                 }
             }
         }
