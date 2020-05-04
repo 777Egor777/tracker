@@ -13,7 +13,7 @@ public class JobTest {
 
     @Test
     public void compare() {
-        List<Job> list = Arrays.asList(
+        List<Job> list = new java.util.ArrayList<>(List.of(
                 new Job("Driver", 12412313),
                 new Job("Driver", 456),
                 new Job("Driver", 1),
@@ -31,9 +31,9 @@ public class JobTest {
                 new Job("Designer", 5000),
                 new Job("Artist", 23000),
                 new Job("Builder", 500)
-        );
-        Collections.sort(list, new JobCompNameIncrease().thenComparing(new JobCompPriorityIncrease()));
-        List<Job> expected = Arrays.asList(
+        ));
+        list.sort(new JobCompNameIncrease().thenComparing(new JobCompPriorityIncrease()));
+        List<Job> expected = List.of(
                 new Job("Artist", 23000),
                 new Job("Aviator", 1),
                 new Job("Aviator", 100),

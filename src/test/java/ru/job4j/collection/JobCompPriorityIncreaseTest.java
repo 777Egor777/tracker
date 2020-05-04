@@ -13,7 +13,7 @@ public class JobCompPriorityIncreaseTest {
 
     @Test
     public void compare() {
-        List<Job> list = Arrays.asList(
+        List<Job> list = new java.util.ArrayList<>(List.of(
                 new Job("Driver", 1),
                 new Job("Aviator", 100),
                 new Job("Footballer", 10000),
@@ -23,8 +23,8 @@ public class JobCompPriorityIncreaseTest {
                 new Job("Designer", 5000),
                 new Job("Artist", 23000),
                 new Job("Builder", 500)
-        );
-        Collections.sort(list, new JobCompPriorityIncrease());
+        ));
+        list.sort(new JobCompPriorityIncrease());
         List<Job> expected = Arrays.asList(
                 new Job("Driver", 1),
                 new Job("Aviator", 100),

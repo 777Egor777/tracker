@@ -11,19 +11,19 @@ public class OrderConvertTest {
 
     @Test
     public void whenNoOrders() {
-        List<Order> orders = Arrays.asList();
+        List<Order> orders = List.of();
         Map<String, Order> result = OrderConvert.process(orders);
-        Map<String, Order> extended = new HashMap<>();
+        Map<String, Order> extended = Map.of();
         assertThat(result, is(extended));
     }
 
     @Test
     public void whenSingleOrder() {
-        Order order = new Order("first", "Egor");
-        List<Order> orders = Arrays.asList(order);
+        List<Order> orders = List.of(
+                new Order("first", "Egor")
+        );
         Map<String, Order> result = OrderConvert.process(orders);
-        Map<String, Order> extended = new HashMap<>();
-        extended.put("first", new Order("first", "Egor"));
+        Map<String, Order> extended = Map.of("first", new Order("first", "Egor"));
         assertThat(MapEquals.equals(result, extended), is(true));
     }
 }
