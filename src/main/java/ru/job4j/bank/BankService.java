@@ -54,23 +54,17 @@ public class BankService {
         if (src.equals(EMPTY_USER) || dest.equals(EMPTY_USER)) {
             // TODO if no such users
             throw new IllegalStateException("No such User's");
-        } else {
-            List<Account> srcAccList = users.get(src);
-            List<Account> destAccList = users.get(dest);
-            int srcAccIndex = srcAccList.indexOf(new Account(srcRequisite, 0D));
-            int destAccIndex = destAccList.indexOf(new Account(destRequisite, 0D));
-            if (srcAccIndex == -1 || destAccIndex == -1) {
-                // TODO if no such accounts
-                throw new IllegalStateException("No such Account's");
-            } else {
-                Account srcAcc = srcAccList.get(srcAccIndex);
-                Account destAcc = destAccList.get(destAccIndex);
-                if (Double.compare(srcAcc.getBalance(), amount) >= 0) {
-                    srcAcc.setBalance(srcAcc.getBalance() - amount);
-                    destAcc.setBalance(destAcc.getBalance() + amount);
-                    result = true;
-                }
-            }
+        }
+        Account srcAcc = findByRequisite(srcPassport, srcRequisite);
+        Account destAcc = findByRequisite(destPassport, destRequisite);
+        if (srcAcc.equals(EMPTY_ACCOUNT) || destAcc.equals(EMPTY_ACCOUNT)) {
+            // TODO if no such accounts
+            throw new IllegalStateException("No such Account's");
+        }
+        if (Double.compare(srcAcc.getBalance(), amount) >= 0) {
+            srcAcc.setBalance(srcAcc.getBalance() - amount);
+            destAcc.setBalance(destAcc.getBalance() + amount);
+            result = true;
         }
         return result;
     }
