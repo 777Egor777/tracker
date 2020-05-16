@@ -1,6 +1,9 @@
 package ru.job4j.bank;
 
 import org.junit.Test;
+
+import java.util.Optional;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -11,8 +14,8 @@ public class BankServiceTest {
         User user = new User("xxx111222", "Egor");
         BankService service = new BankService();
         service.addUser(user);
-        User result = service.findByPassport(user.getPassport());
-        User expected = new User("xxx111222", "Egor");
+        Optional<User> result = service.findByPassport(user.getPassport());
+        Optional<User> expected = Optional.of(new User("xxx111222", "Egor"));
         assertThat(result, is(expected));
     }
 
@@ -23,8 +26,8 @@ public class BankServiceTest {
         service.addUser(user);
         Account account = new Account("123123132", 100.2);
         service.addAccount(user.getPassport(), account);
-        Account result = service.findByRequisite(user.getPassport(), account.getRequisite());
-        Account expected = new Account("123123132", 100.2);
+        Optional<Account> result = service.findByRequisite(user.getPassport(), account.getRequisite());
+        Optional<Account> expected = Optional.of(new Account("123123132", 100.2));
         assertThat(result, is(expected));
     }
 
@@ -33,8 +36,8 @@ public class BankServiceTest {
         User user = new User("###asdd1122", "Viktor");
         BankService service = new BankService();
         service.addUser(user);
-        User result = service.findByPassport(user.getPassport());
-        User expected = new User("###asdd1122", "Egor");
+        Optional<User> result = service.findByPassport(user.getPassport());
+        Optional<User> expected = Optional.of(new User("###asdd1122", "Egor"));
         assertThat(result, is(expected));
     }
 
@@ -43,8 +46,8 @@ public class BankServiceTest {
         User user = new User("###asdd1122", "Viktor");
         BankService service = new BankService();
         service.addUser(user);
-        User result = service.findByPassport("##asdd1122");
-        User expected = BankService.EMPTY_USER;
+        Optional<User> result = service.findByPassport("##asdd1122");
+        Optional<User> expected = Optional.empty();
         assertThat(result, is(expected));
     }
 
@@ -55,8 +58,8 @@ public class BankServiceTest {
         service.addUser(user);
         Account account = new Account("12123123121123132", 102.2);
         service.addAccount(user.getPassport(), account);
-        Account result = service.findByRequisite(user.getPassport(), account.getRequisite());
-        Account expected = new Account("12123123121123132", 102.2);
+        Optional<Account> result = service.findByRequisite(user.getPassport(), account.getRequisite());
+        Optional<Account> expected = Optional.of(new Account("12123123121123132", 102.2));
         assertThat(result, is(expected));
     }
 
@@ -67,8 +70,8 @@ public class BankServiceTest {
         service.addUser(user);
         Account account = new Account("12123123121123132", 102.2);
         service.addAccount(user.getPassport(), account);
-        Account result = service.findByRequisite(user.getPassport(), "ghjfg fghaer123");
-        Account expected = BankService.EMPTY_ACCOUNT;
+        Optional<Account> result = service.findByRequisite(user.getPassport(), "ghjfg fghaer123");
+        Optional<Account> expected = Optional.empty();
         assertThat(result, is(expected));
     }
 
@@ -84,7 +87,7 @@ public class BankServiceTest {
         service.transferMoney(user.getPassport(), firstAcc.getRequisite(),
                               user.getPassport(), secondAcc.getRequisite(),
                               100D);
-        double result = service.findByRequisite(user.getPassport(), secondAcc.getRequisite()).getBalance();
+        double result = service.findByRequisite(user.getPassport(), secondAcc.getRequisite()).get().getBalance();
         double expected = 300D;
         assertThat(result, is(expected));
     }

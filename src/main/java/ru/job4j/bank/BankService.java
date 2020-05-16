@@ -5,22 +5,19 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BankService {
-    public final static User EMPTY_USER = new User("#####EMPTY#####12321", "#####EMPTY#####12321");
-    public final static Account EMPTY_ACCOUNT = new Account("#####EMPTY#####12321", 0D);
-
-    private Map<User, List<Account>> users = new HashMap<>();
+     private Map<User, List<Account>> users = new HashMap<>();
 
     public void addUser(User user) {
         users.putIfAbsent(user, new ArrayList<>());
     }
 
     public void addAccount(String passport, Account account) {
-        User user = findByPassport(passport);
-        if (user.equals(EMPTY_USER)) {
+        Optional<User> userOpt = findByPassport(passport);
+        if (userOpt.isEmpty()) {
             // TODO if such user not exist
             throw new IllegalStateException("No such User");
         } else {
-            List<Account> list = users.get(user);
+            List<Account> list = users.get(userOpt.get());
             if (list.contains(account)) {
                 // TODO if such account already exist
                 throw new IllegalStateException("Such Account already exist");
@@ -30,17 +27,17 @@ public class BankService {
         }
     }
 
-    public User findByPassport(String passport) {
-        return users.keySet().stream().filter(x -> x.getPassport().equals(passport)).
-                findFirst().orElse(EMPTY_USER);
+    public Optional<User> findByPassport(String passport) {
+        return Optional.ofNullable(users.keySet().stream().filter(x -> x.getPassport().equals(passport)).
+                findFirst().orElse(null));
     }
 
-    public Account findByRequisite(String passport, String requisite) {
-        Account result = EMPTY_ACCOUNT;
-        User user = findByPassport(passport);
-        if (!user.equals(EMPTY_USER)) {
-            result = Stream.of(user).map(x -> users.get(x)).flatMap(Collection::stream).filter(x -> x.getRequisite().equals(requisite))
-                    .findFirst().orElse(EMPTY_ACCOUNT);
+    public Optional<Account> findByRequisite(String passport, String requisite) {
+        Optional<Account> result = Optional.empty();
+        Optional<User> userOpt = findByPassport(passport);
+        if (userOpt.isPresent()) {
+            result = Optional.ofNullable(Stream.of(userOpt.get()).map(x -> users.get(x)).flatMap(Collection::stream).filter(x -> x.getRequisite().equals(requisite))
+                    .findFirst().orElse(null));
         }
         return result;
     }
@@ -49,21 +46,21 @@ public class BankService {
                                  String destPassport, String destRequisite,
                                  double amount) {
         boolean result = false;
-        User src = findByPassport(srcPassport);
-        User dest = findByPassport(destPassport);
-        if (src.equals(EMPTY_USER) || dest.equals(EMPTY_USER)) {
+        Optional<User> srcOpt = findByPassport(srcPassport);
+        Optional<User> destOpt = findByPassport(destPassport);
+        if (srcOpt.isEmpty() || destOpt.isEmpty()) {
             // TODO if no such users
             throw new IllegalStateException("No such User's");
         }
-        Account srcAcc = findByRequisite(srcPassport, srcRequisite);
-        Account destAcc = findByRequisite(destPassport, destRequisite);
-        if (srcAcc.equals(EMPTY_ACCOUNT) || destAcc.equals(EMPTY_ACCOUNT)) {
+        Optional<Account> srcAccOpt = findByRequisite(srcPassport, srcRequisite);
+        Optional<Account> destAccOpt = findByRequisite(destPassport, destRequisite);
+        if (srcAccOpt.isEmpty() || destAccOpt.isEmpty()) {
             // TODO if no such accounts
             throw new IllegalStateException("No such Account's");
         }
-        if (Double.compare(srcAcc.getBalance(), amount) >= 0) {
-            srcAcc.setBalance(srcAcc.getBalance() - amount);
-            destAcc.setBalance(destAcc.getBalance() + amount);
+        if (Double.compare(srcAccOpt.get().getBalance(), amount) >= 0) {
+            srcAccOpt.get().setBalance(srcAccOpt.get().getBalance() - amount);
+            destAccOpt.get().setBalance(destAccOpt.get().getBalance() + amount);
             result = true;
         }
         return result;
