@@ -10,7 +10,7 @@ import java.util.List;
  * on an array of Item's
  * @author Geraskin Egor (yegeraskin13@gmail.com)
  */
-public class Tracker {
+public class MemTracker implements Store {
 
     /**
      * Array of requests
@@ -26,6 +26,11 @@ public class Tracker {
     private String generateId() {
         long idNumber = (long) (new Date().getTime() * Math.random());
         return "" + idNumber;
+    }
+
+    @Override
+    public void init() {
+
     }
 
     /**
@@ -143,5 +148,10 @@ public class Tracker {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public void close() throws Exception {
+
     }
 }

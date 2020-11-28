@@ -20,7 +20,7 @@ public class StartUITest {
     public void whenAddItem() {
         List<String> answers = new ArrayList(Arrays.asList("Fix PC"));
         Input input = new StubInput(answers);
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         new StartUI().actions.get(0).execute(input, tracker);
         Item result = tracker.findAll().get(0);
         Item expected = new Item("Fix PC");
@@ -30,7 +30,7 @@ public class StartUITest {
     @Test
     public void editItemInTracker() {
         Item item = new Item("Fix PC");
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         tracker.add(item);
         List<String> answers = new ArrayList(Arrays.asList(item.getId(), "replaced Item"));
         Input input = new StubInput(answers);
@@ -43,7 +43,7 @@ public class StartUITest {
     @Test
     public void deleteItemFromTracker() {
         Item item = new Item("Fix PC");
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         tracker.add(item);
         List<String> answers = new ArrayList(Arrays.asList(item.getId()));
         Input input = new StubInput(answers);
@@ -58,7 +58,7 @@ public class StartUITest {
         StubAction action = new StubAction();
         List<UserAction> actions = Arrays.asList(action);
         Input input = new StubInput(new ArrayList(Arrays.asList("0")));
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         StartUI startUI = new StartUI();
         startUI.init(input, tracker, actions);
         boolean result = action.isCall();
@@ -73,7 +73,7 @@ public class StartUITest {
         StubAction action = new StubAction();
         List<UserAction> actions = Arrays.asList(action);
         Input input = new StubInput(new ArrayList(Arrays.asList("0")));
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         StartUI startUI = new StartUI();
         startUI.init(input, tracker, actions);
         String result = new String(out.toByteArray());

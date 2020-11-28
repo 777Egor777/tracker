@@ -40,7 +40,7 @@ public class ExitItem implements UserAction {
      * false - otherwise
      */
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store tracker) {
         System.out.println(this.name());
         return false;
     }

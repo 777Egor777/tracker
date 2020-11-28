@@ -19,13 +19,18 @@ public class Item {
     private String name;
 
     /**
-     * Standart constructor
+     * Standard constructor
      * that set only one field
      * this.name
      * @param name - new value of the
      *               field this.name
      */
     public Item(String name) {
+        this.name = name;
+    }
+
+    public Item(String id, String name) {
+        this.id = id;
         this.name = name;
     }
 

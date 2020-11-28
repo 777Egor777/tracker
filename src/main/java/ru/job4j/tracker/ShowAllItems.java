@@ -33,7 +33,7 @@ public class ShowAllItems implements UserAction {
      *                  that we interact with
      */
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store tracker) {
         System.out.println(this.name());
         List<Item> allItems = tracker.findAll();
         StartUI.printItems(allItems);

@@ -12,7 +12,7 @@ public class ItemSort {
                 new Item("Viktor"),
                 new Item("Bobby")
         );
-        Tracker tracker = new Tracker();
+        Store tracker = new MemTracker();
         for (Item item : items) {
             tracker.add(item);
         }

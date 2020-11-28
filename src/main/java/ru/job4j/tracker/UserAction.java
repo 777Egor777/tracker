@@ -33,5 +33,5 @@ public interface UserAction {
      *                finished
      *         false - otherwise
      */
-    boolean execute(Input input, Tracker tracker);
+    boolean execute(Input input, Store tracker);
 }

@@ -85,7 +85,7 @@ public class StartUI {
      * @param tracker - object of Tracker class
      *                  that we interact with
      */
-    public void init(Input input, Tracker tracker, List<UserAction> actions) {
+    public void init(Input input, Store tracker, List<UserAction> actions) {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
@@ -104,8 +104,11 @@ public class StartUI {
      */
     public static void main(String[] args) {
         Input input = new ValidateInput(new ConsoleInput());
-        Tracker tracker = new Tracker();
-        StartUI ui = new StartUI();
-        ui.init(input, tracker, ui.actions);
+        try(Store tracker = new SqlTracker()) {
+            StartUI ui = new StartUI();
+            ui.init(input, tracker, ui.actions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

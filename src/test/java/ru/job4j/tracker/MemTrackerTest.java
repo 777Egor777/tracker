@@ -10,11 +10,11 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.nullValue;
 
-public class TrackerTest {
+public class MemTrackerTest {
 
     @Test
     public void add() {
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = new Item("test Item");
         tracker.add(item);
         List<Item> items = tracker.findAll();
@@ -23,7 +23,7 @@ public class TrackerTest {
 
     @Test
     public void findAll() {
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item1 = new Item("test Item");
         Item item2 = new Item("test Item2");
         Item item3 = new Item("test Item3");
@@ -41,7 +41,7 @@ public class TrackerTest {
 
     @Test
     public void findByName() {
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item1 = new Item("test Item");
         Item item2 = new Item("test Item2");
         Item item3 = new Item("test Item3");
@@ -61,7 +61,7 @@ public class TrackerTest {
 
     @Test
     public void findById() {
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item1 = new Item("test Item");
         Item item2 = new Item("test Item2");
         Item item3 = new Item("test Item3");
@@ -76,7 +76,7 @@ public class TrackerTest {
 
     @Test
     public void replace() {
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item bug = new Item("Bug");
         tracker.add(bug);
         String id = bug.getId();
@@ -87,7 +87,7 @@ public class TrackerTest {
 
     @Test
     public void delete() {
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item bug = new Item("Bug");
         tracker.add(bug);
         String id = bug.getId();

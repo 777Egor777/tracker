@@ -30,7 +30,7 @@ public class FindItemByNameTest {
 
     @Test
     public void whenPrintAllItems() {
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = new Item("Egor");
         tracker.add(item);
         UserAction action = new FindItemByName();
