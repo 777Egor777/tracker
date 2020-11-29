@@ -1,0 +1,15 @@
+insert into items(name) values('test Item');
+insert into items(name) values('test Item2');
+insert into items(name) values('test Item3');
+insert into items(name) values('test Item');
+insert into items(name) values('test Item');
+insert into items(name) values('test Item2');
+insert into items(name) values('test Item3');
+insert into items(name) values('test Item');
+insert into items(name) values('Bug');
+update items set name='Bug with description' where id=1;
+insert into items(name) values('test Item');
+insert into items(name) values('test Item2');
+insert into items(name) values('test Item3');
+insert into items(name) values('Bug');
+delete from items where id=1;

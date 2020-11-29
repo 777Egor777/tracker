@@ -1,7 +1,11 @@
 package ru.job4j.tracker;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Class used to interact
@@ -95,6 +99,21 @@ public class StartUI {
         }
     }
 
+    public static Connection initConnection() {
+        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("driver-class-name"));
+            return DriverManager.getConnection(
+                    config.getProperty("url"),
+                    config.getProperty("username"),
+                    config.getProperty("password")
+            );
+        } catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
+    }
+
     /**
      * Main class, entry-point of the program.
      * We create here all necessary
@@ -104,7 +123,7 @@ public class StartUI {
      */
     public static void main(String[] args) {
         Input input = new ValidateInput(new ConsoleInput());
-        try(Store tracker = new SqlTracker()) {
+        try (Store tracker = new SqlTracker(initConnection())) {
             StartUI ui = new StartUI();
             ui.init(input, tracker, ui.actions);
         } catch (Exception e) {

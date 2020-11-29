@@ -4,46 +4,40 @@ import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class SqlTracker implements Store {
-    private Connection cn;
-    private int currentMaxId = 0;
+    private final Connection cn;
 
-    public SqlTracker() {
+    public SqlTracker(Connection cn) {
+        this.cn = cn;
         init();
     }
 
     @Override
     public void init() {
-        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
-            Properties config = new Properties();
-            config.load(in);
-            Class.forName(config.getProperty("driver-class-name"));
-            cn = DriverManager.getConnection(
-                    config.getProperty("url"),
-                    config.getProperty("username"),
-                    config.getProperty("password")
-            );
-            createTable();
-        } catch (Exception ex) {
-            throw new IllegalStateException(ex);
-        }
+        createTable();
     }
 
     @Override
     public Item add(Item item) {
-        try (Statement st = cn.createStatement()) {
-            String insertQuery =
-                    String.format("insert into items(name) values(\'%s\');", item.getName());
-            st.executeUpdate(insertQuery);
-            addQueryToFile(insertQuery);
-            setCurrentMaxId();
-            item.setId(""+(currentMaxId));
+        try (final PreparedStatement st = cn.prepareStatement(
+                "insert into items(name) values(?);",
+                Statement.RETURN_GENERATED_KEYS
+        )) {
+            st.setString(1, item.getName());
+            st.executeUpdate();
+            addQueryToFile(String.format("insert into items(name) values('%s');", item.getName()));
+            try (ResultSet gk = st.getGeneratedKeys()) {
+                if (gk.next()) {
+                    item.setId("" + gk.getInt(1));
+                    return item;
+                }
+            }
+
         } catch (Exception ex) {
-            throw new IllegalStateException("Exception when adding Item", ex);
+            ex.printStackTrace();
         }
-        return item;
+        throw new IllegalStateException("Couldn't create new user");
     }
 
     @Override
@@ -86,7 +80,7 @@ public class SqlTracker implements Store {
         try (Statement st = cn.createStatement()) {
             ResultSet rs = st.executeQuery("select * from items");
             while (rs.next()) {
-                result.add(new Item(""+rs.getInt(1), rs.getString(2)));
+                result.add(new Item("" + rs.getInt(1), rs.getString(2)));
             }
         } catch (SQLException throwable) {
             throw new IllegalStateException("Exception when getting Item list", throwable);
@@ -100,7 +94,7 @@ public class SqlTracker implements Store {
         try (Statement st = cn.createStatement()) {
             ResultSet rs = st.executeQuery(String.format("select * from items where name like \'%s\';", name));
             while (rs.next()) {
-                result.add(new Item(""+rs.getInt(1), rs.getString(2)));
+                result.add(new Item("" + rs.getInt(1), rs.getString(2)));
             }
         } catch (SQLException throwable) {
             throw new IllegalStateException("Exception when getting Item list", throwable);
@@ -142,14 +136,14 @@ public class SqlTracker implements Store {
         return result;
     }
 
-    private void createTable() throws Exception {
+    private void createTable() {
         if (isTableCreated()) {
             return;
         }
         try (Statement st = cn.createStatement()) {
             st.executeUpdate(readQueryFromFile());
         } catch (Exception ex) {
-            throw new Exception("Table wasn't created");
+            ex.printStackTrace();
         }
     }
 
@@ -175,24 +169,8 @@ public class SqlTracker implements Store {
         }
     }
 
-    private void setCurrentMaxId() {
-        try (Statement st = cn.createStatement()) {
-            String query = "select id from items order by id desc limit 1;";
-            try(ResultSet rs = st.executeQuery(query)) {
-                if (rs.next()) {
-                    currentMaxId = rs.getInt(1);
-                }
-            }
-
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        } finally {
-
-        }
-    }
-
     private boolean idExist(int id) {
-        boolean result = false;
+        boolean result;
         try (Statement st = cn.createStatement();
              ResultSet rs = st.executeQuery(
                      String.format(
