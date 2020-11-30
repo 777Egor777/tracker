@@ -45,9 +45,8 @@ public class SqlTracker implements Store {
         boolean result = false;
         try (Statement st = cn.createStatement()) {
             int itemId = Integer.parseInt(id);
-            if (idExist(itemId)) {
-                String updQuery = String.format("update items set name=\'%s\' where id=%d;", item.getName(), itemId);
-                st.executeUpdate(updQuery);
+            String updQuery = String.format("update items set name=\'%s\' where id=%d;", item.getName(), itemId);
+            if (st.executeUpdate(updQuery) > 0) {
                 addQueryToFile(updQuery);
                 result = true;
             }
@@ -62,12 +61,12 @@ public class SqlTracker implements Store {
         boolean result = false;
         try (Statement st = cn.createStatement()) {
             int itemId = Integer.parseInt(id);
-            if (idExist(itemId)) {
-                String delQuery = String.format("delete from items where id=%d;", itemId);
-                st.executeUpdate(delQuery);
+            String delQuery = String.format("delete from items where id=%d;", itemId);
+            if (st.executeUpdate(delQuery) > 0) {
                 addQueryToFile(delQuery);
                 result = true;
             }
+
         } catch (SQLException throwable) {
             throw new IllegalStateException("Exception when deleting Item", throwable);
         }
@@ -167,21 +166,5 @@ public class SqlTracker implements Store {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
-    private boolean idExist(int id) {
-        boolean result;
-        try (Statement st = cn.createStatement();
-             ResultSet rs = st.executeQuery(
-                     String.format(
-                             "select id from items where id=%d;",
-                             id
-                     )
-             )) {
-            result = rs.next();
-        } catch (Exception ex) {
-            throw new IllegalStateException("when id exist checking", ex);
-        }
-        return result;
     }
 }
