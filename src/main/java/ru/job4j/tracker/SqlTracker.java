@@ -43,10 +43,12 @@ public class SqlTracker implements Store {
     @Override
     public boolean replace(String id, Item item) {
         boolean result = false;
-        try (Statement st = cn.createStatement()) {
+        try (PreparedStatement st = cn.prepareStatement("update items set name=? where id=?;")) {
             int itemId = Integer.parseInt(id);
-            String updQuery = String.format("update items set name=\'%s\' where id=%d;", item.getName(), itemId);
-            if (st.executeUpdate(updQuery) > 0) {
+            st.setString(1, item.getName());
+            st.setInt(2, itemId);
+            String updQuery = String.format("update items set name='%s' where id=%d;", item.getName(), itemId);
+            if (st.executeUpdate() > 0) {
                 addQueryToFile(updQuery);
                 result = true;
             }
@@ -59,10 +61,11 @@ public class SqlTracker implements Store {
     @Override
     public boolean delete(String id) {
         boolean result = false;
-        try (Statement st = cn.createStatement()) {
+        try (PreparedStatement st = cn.prepareStatement("delete from items where id=?;")) {
             int itemId = Integer.parseInt(id);
+            st.setInt(1, itemId);
             String delQuery = String.format("delete from items where id=%d;", itemId);
-            if (st.executeUpdate(delQuery) > 0) {
+            if (st.executeUpdate() > 0) {
                 addQueryToFile(delQuery);
                 result = true;
             }
@@ -76,8 +79,8 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findAll() {
         List<Item> result = new ArrayList<>();
-        try (Statement st = cn.createStatement()) {
-            ResultSet rs = st.executeQuery("select * from items");
+        try (PreparedStatement st = cn.prepareStatement("select * from items")) {
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 result.add(new Item("" + rs.getInt(1), rs.getString(2)));
             }
@@ -90,8 +93,9 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String name) {
         List<Item> result = new ArrayList<>();
-        try (Statement st = cn.createStatement()) {
-            ResultSet rs = st.executeQuery(String.format("select * from items where name like \'%s\';", name));
+        try (PreparedStatement st = cn.prepareStatement("select * from items where name like ?;")) {
+            st.setString(1, name);
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 result.add(new Item("" + rs.getInt(1), rs.getString(2)));
             }
@@ -104,9 +108,9 @@ public class SqlTracker implements Store {
     @Override
     public Item findById(String id) {
         Item result = null;
-        try (Statement st = cn.createStatement()) {
-            int itemId = Integer.parseInt(id);
-            ResultSet rs = st.executeQuery(String.format("select * from items where id=%d;", itemId));
+        try (PreparedStatement st = cn.prepareStatement("select * from items where id=?;")) {
+            st.setInt(1, Integer.parseInt(id));
+            ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 result = new Item("" + rs.getInt(1), rs.getString(2));
             }
