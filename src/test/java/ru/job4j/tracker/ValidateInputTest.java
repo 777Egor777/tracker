@@ -3,6 +3,9 @@ package ru.job4j.tracker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.StubInput;
+import ru.job4j.tracker.input.ValidateInput;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -29,7 +32,7 @@ public class ValidateInputTest {
 
     @Test
     public void whenInvalidInput() {
-        Input input = new ValidateInput(new StubInput(new ArrayList(Arrays.asList("2", "1"))));
+        Input input = new ValidateInput(new StubInput(new ArrayList<>(Arrays.asList("2", "1"))));
         input.askInt("Select: ", 2);
         String result = new String(out.toByteArray());
         String expected = "Number not from diapason [0:2)" + System.lineSeparator();
@@ -38,7 +41,7 @@ public class ValidateInputTest {
 
     @Test
     public void whenMaxNumberInput() {
-        Input input = new ValidateInput(new StubInput(new ArrayList(Arrays.asList("one", "6"))));
+        Input input = new ValidateInput(new StubInput(new ArrayList<>(Arrays.asList("one", "6"))));
         input.askInt("Select: ", 7);
         String result = new String(out.toByteArray());
         String expected = "This is not an Integer number." + System.lineSeparator();

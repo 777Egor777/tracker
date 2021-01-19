@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.MemTracker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,9 +71,8 @@ public class MemTrackerTest {
         tracker.add(item2);
         tracker.add(item3);
         List<Item> items = tracker.findAll();
-        Item temp = item1;
         Item findResult = tracker.findById(item1.getId());
-        assertThat(findResult, is(temp));
+        assertThat(findResult, is(item1));
     }
 
     @Test

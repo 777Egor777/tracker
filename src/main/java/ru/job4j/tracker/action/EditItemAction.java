@@ -1,4 +1,8 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.action;
+
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.Store;
 
 /**
  * Menu Item of the
@@ -9,7 +13,7 @@ package ru.job4j.tracker;
  * @author Geraskin Egor (yegeraskin13@gmail.com)
  * @version $Id$
  */
-public class EditItem implements UserAction {
+public class EditItemAction implements UserAction {
     /**
      * Description of the
      * user action

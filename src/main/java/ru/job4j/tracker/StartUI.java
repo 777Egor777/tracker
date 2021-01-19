@@ -1,5 +1,14 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.action.*;
+import ru.job4j.tracker.input.ConsoleInput;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.ValidateInput;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.MemTracker;
+import ru.job4j.tracker.store.SqlTracker;
+import ru.job4j.tracker.store.Store;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,13 +35,13 @@ public class StartUI {
     public List<UserAction> actions;
     {
         this.actions = Arrays.asList(
-                new AddItem(),
-                new ShowAllItems(),
-                new EditItem(),
-                new DeleteItem(),
-                new FindItemByID(),
-                new FindItemByName(),
-                new ExitItem()
+                new AddItemAction(),
+                new ShowAllItemsAction(),
+                new EditItemAction(),
+                new DeleteItemAction(),
+                new FindItemByIDAction(),
+                new FindItemByNameAction(),
+                new ExitItemAction()
         );
     }
 

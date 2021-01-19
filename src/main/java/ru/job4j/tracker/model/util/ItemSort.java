@@ -1,7 +1,10 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.model.util;
+
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.MemTracker;
+import ru.job4j.tracker.store.Store;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class ItemSort {
@@ -17,19 +20,18 @@ public class ItemSort {
             tracker.add(item);
         }
         print("Before sort:", items);
-        items = increaseSort(items);
+        increaseSort(items);
         print("After increase sort:", items);
-        items = deccreaseSort(items);
+        decreaseSort(items);
         print("After decrease sort:", items);
     }
 
-    public static List<Item> increaseSort(List<Item> items) {
-        Collections.sort(items, new ItemComparatorIncrease());
-        return items;
+    public static void increaseSort(List<Item> items) {
+        items.sort(new ItemComparatorIncrease());
     }
-    public static List<Item> deccreaseSort(List<Item> items) {
-        Collections.sort(items, new ItemComparatorDecrease());
-        return items;
+
+    public static void decreaseSort(List<Item> items) {
+        items.sort(new ItemComparatorDecrease());
     }
 
     public static void print(String message, List<Item> items) {

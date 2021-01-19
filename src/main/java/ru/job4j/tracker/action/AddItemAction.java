@@ -1,14 +1,19 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.action;
+
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.Store;
 
 /**
  * Menu Item of the
  * User Interface.
- * It helps to get
- * out from tracker.
+ * It helps to add
+ * a new user to
+ * tracker.
  * @author Geraskin Egor (yegeraskin13@gmail.com)
  * @version $Id$
  */
-public class ExitItem implements UserAction {
+public class AddItemAction implements UserAction {
     /**
      * Description of the
      * user action
@@ -19,29 +24,27 @@ public class ExitItem implements UserAction {
      */
     @Override
     public String name() {
-        return "=== Exit program ===";
+        return "=== Add new Item ===";
     }
 
     /**
-     * Method include
-     * operation that we
-     * should do according
-     * to this user action
-     *
-     * @param input   - object of class
+     * Interact mecthod.
+     * Used for add new
+     * item to Tracker
+     * @param input - object of class
      *                that realise Input
      *                interface.
      *                Need to organise
      *                input.
      * @param tracker - object of Tracker class
-     *                that we interact with
-     * @return true - if operation correctly
-     * finished
-     * false - otherwise
+     *                  that we interact with
      */
     @Override
     public boolean execute(Input input, Store tracker) {
         System.out.println(this.name());
-        return false;
+        String itemName = input.askStr("Enter item name: ");
+        Item item = new Item(itemName);
+        tracker.add(item);
+        return true;
     }
 }

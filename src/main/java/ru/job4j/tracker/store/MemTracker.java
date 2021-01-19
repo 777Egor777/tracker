@@ -1,8 +1,8 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.store;
+
+import ru.job4j.tracker.model.Item;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +17,8 @@ public class MemTracker implements Store {
      */
     private List<Item> items = new ArrayList<>();
 
+    private int curId = 1;
+
     /**
      * Generator of random id's
      * for all requests
@@ -24,8 +26,8 @@ public class MemTracker implements Store {
      *         id for some request
      */
     private String generateId() {
-        long idNumber = (long) (new Date().getTime() * Math.random());
-        return "" + idNumber;
+        //long idNumber = (long) (new Date().getTime() * Math.random());
+        return "" + curId++;
     }
 
     @Override
@@ -151,7 +153,7 @@ public class MemTracker implements Store {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
 
     }
 }

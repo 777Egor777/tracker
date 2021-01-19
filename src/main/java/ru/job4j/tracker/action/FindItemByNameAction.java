@@ -1,15 +1,22 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.action;
+
+import ru.job4j.tracker.*;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.Store;
+
+import java.util.List;
 
 /**
  * Menu Item of the
  * User Interface.
- * It helps to add
- * a new user to
- * tracker.
+ * It helps to find
+ * user in tracker
+ * by Name.
  * @author Geraskin Egor (yegeraskin13@gmail.com)
  * @version $Id$
  */
-public class AddItem implements UserAction {
+public class FindItemByNameAction implements UserAction {
     /**
      * Description of the
      * user action
@@ -20,13 +27,14 @@ public class AddItem implements UserAction {
      */
     @Override
     public String name() {
-        return "=== Add new Item ===";
+        return "=== Find item's by name ===";
     }
 
     /**
      * Interact mecthod.
-     * Used for add new
-     * item to Tracker
+     * Used for searching
+     * Item's with name
+     * that user enters.
      * @param input - object of class
      *                that realise Input
      *                interface.
@@ -37,10 +45,10 @@ public class AddItem implements UserAction {
      */
     @Override
     public boolean execute(Input input, Store tracker) {
-        System.out.println(this.name());
-        String itemName = input.askStr("Enter item name: ");
-        Item item = new Item(itemName);
-        tracker.add(item);
+        System.out.println("=== Find item's by name ===");
+        String itemName = input.askStr("Enter name: ");
+        List<Item> items = tracker.findByName(itemName);
+        StartUI.printItems(items);
         return true;
     }
 }

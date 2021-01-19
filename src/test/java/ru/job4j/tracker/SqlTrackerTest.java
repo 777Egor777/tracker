@@ -1,8 +1,10 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.SqlTracker;
+import ru.job4j.tracker.util.ConnectionRollback;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,9 +74,8 @@ public class SqlTrackerTest {
             tracker.add(item2);
             tracker.add(item3);
             List<Item> items = tracker.findAll();
-            Item temp = item1;
             Item findResult = tracker.findById(item1.getId());
-            assertThat(findResult, is(temp));
+            assertThat(findResult, is(item1));
         }
     }
 

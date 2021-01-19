@@ -1,4 +1,6 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.input;
+
+import ru.job4j.tracker.input.Input;
 
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class StubInput implements Input {
      */
     @Override
     public int askInt(String question) {
-        int result = 0;
+        int result;
         try {
             result = Integer.parseInt(askStr(question));
         } catch (Exception ex) {

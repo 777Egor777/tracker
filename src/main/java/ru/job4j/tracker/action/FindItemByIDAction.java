@@ -1,14 +1,21 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.action;
+
+import ru.job4j.tracker.*;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.Store;
 
 /**
  * Menu Item of the
  * User Interface.
- * It helps to delete
- * a user from tracker.
+ * It helps to find
+ * user in tracker
+ * by Id.
  * @author Geraskin Egor (yegeraskin13@gmail.com)
  * @version $Id$
  */
-public class DeleteItem implements UserAction {
+public class FindItemByIDAction implements UserAction {
+
     /**
      * Description of the
      * user action
@@ -19,15 +26,17 @@ public class DeleteItem implements UserAction {
      */
     @Override
     public String name() {
-        return "=== Delete item ===";
+        return "=== Find item by id  ===";
     }
 
     /**
      * Interact mecthod.
-     * Used for deleting
-     * item from the Tracker
-     * @param input - object of class that
-     *                realise Input interface.
+     * Used for searching
+     * Item with id
+     * that user enters.
+     * @param input - object of class
+     *                that realise Input
+     *                interface.
      *                Need to organise
      *                input.
      * @param tracker - object of Tracker class
@@ -37,10 +46,11 @@ public class DeleteItem implements UserAction {
     public boolean execute(Input input, Store tracker) {
         System.out.println(this.name());
         String itemId = input.askStr("Enter id: ");
-        if (tracker.delete(itemId)) {
-            System.out.println("Operation successful!");
+        Item item = tracker.findById(itemId);
+        if (item == null) {
+            System.out.println("No such id");
         } else {
-            System.out.println("No such id :(");
+            StartUI.printItem(item);
         }
         return true;
     }

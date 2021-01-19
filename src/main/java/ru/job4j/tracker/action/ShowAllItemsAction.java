@@ -1,4 +1,9 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.action;
+
+import ru.job4j.tracker.*;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.Store;
 
 import java.util.List;
 
@@ -11,7 +16,7 @@ import java.util.List;
  * @author Geraskin Egor (yegeraskin13@gmail.com)
  * @version $Id$
  */
-public class ShowAllItems implements UserAction {
+public class ShowAllItemsAction implements UserAction {
     /**
      * Description of the
      * user action

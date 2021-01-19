@@ -1,22 +1,17 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.action;
+
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.store.Store;
 
 /**
- * Implementation of the
- * UserAction interface.
- * We use it for
- * testing.
+ * Menu Item of the
+ * User Interface.
+ * It helps to get
+ * out from tracker.
  * @author Geraskin Egor (yegeraskin13@gmail.com)
  * @version $Id$
  */
-public class StubAction implements UserAction {
-    /**
-     * true - if method "execute"
-     *        of this object was
-     *        called
-     * false - otherwise
-     */
-    private boolean call = false;
-
+public class ExitItemAction implements UserAction {
     /**
      * Description of the
      * user action
@@ -27,7 +22,7 @@ public class StubAction implements UserAction {
      */
     @Override
     public String name() {
-        return "Stub action";
+        return "=== Exit program ===";
     }
 
     /**
@@ -49,11 +44,7 @@ public class StubAction implements UserAction {
      */
     @Override
     public boolean execute(Input input, Store tracker) {
-        this.call = true;
+        System.out.println(this.name());
         return false;
-    }
-
-    public boolean isCall() {
-        return this.call;
     }
 }
