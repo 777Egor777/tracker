@@ -43,47 +43,48 @@ public class HibernateRun {
     }
 
     public static Item create(Item item, SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.save(item);
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            session.save(item);
+            session.getTransaction().commit();
+        }
         return item;
     }
 
     public static void update(Item item, SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.update(item);
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            session.update(item);
+            session.getTransaction().commit();
+        }
     }
 
     public static void delete(Integer id, SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.delete(new Item(id, ""));
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            session.delete(new Item(id, ""));
+            session.getTransaction().commit();
+        }
     }
 
     public static List<Item> findAll(SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
         List<Item> res = new ArrayList<>();
-        Item item = new Item("");
-        session.createQuery("from ru.job4j.tracker.model.Item").list().forEach(obj -> res.add(item.of(obj)));
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            Item item = new Item("");
+            session.createQuery("from ru.job4j.tracker.model.Item").list().forEach(obj -> res.add(item.of(obj)));
+            session.getTransaction().commit();
+        }
         return res;
     }
 
     public static Item findById(Integer id, SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        Item result = session.get(Item.class, id);
-        session.getTransaction().commit();
-        session.close();
+        Item result;
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            result = session.get(Item.class, id);
+            session.getTransaction().commit();
+        }
         return result;
     }
 }
