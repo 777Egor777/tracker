@@ -38,7 +38,7 @@ public class FindItemByIDActionTest {
         tracker.add(item);
         UserAction action = new FindItemByIDAction();
         Input input = mock(Input.class);
-        when(input.askStr("Enter id: ")).thenReturn("1");
+        when(input.askInt("Enter id: ")).thenReturn(1);
         action.execute(input, tracker);
         String result = new String(out.toByteArray());
         String expected = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())

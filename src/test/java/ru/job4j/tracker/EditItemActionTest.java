@@ -42,7 +42,7 @@ public class EditItemActionTest {
         String replacedName = "New item name";
         UserAction action = new EditItemAction();
         Input input = mock(Input.class);
-        when(input.askStr("Enter id: ")).thenReturn("1");
+        when(input.askInt("Enter id: ")).thenReturn(1);
         when(input.askStr("Enter item name: ")).thenReturn(replacedName);
         action.execute(input, tracker);
         StringJoiner joiner = new StringJoiner(System.lineSeparator(), "", System.lineSeparator());

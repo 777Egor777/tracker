@@ -61,7 +61,7 @@ public class StartUI {
      *               print
      */
     public static void printItem(Item item) {
-        String result = String.format("id: \"%s\"  name: \"%s\"%s",
+        String result = String.format("id: \"%d\"  name: \"%s\"%s",
                                    item.getId(),
                                    item.getName(), System.lineSeparator());
         System.out.print(result);

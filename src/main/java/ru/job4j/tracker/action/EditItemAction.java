@@ -42,7 +42,7 @@ public class EditItemAction implements UserAction {
     @Override
     public boolean execute(Input input, Store tracker) {
         System.out.println(this.name());
-        String itemId = input.askStr("Enter id: ");
+        Integer itemId = input.askInt("Enter id: ");
         String itemName = input.askStr("Enter item name: ");
         Item item = new Item(itemName);
         if (tracker.replace(itemId, item)) {

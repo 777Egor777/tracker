@@ -35,7 +35,7 @@ public class StartUITest {
         Item item = new Item("Fix PC");
         MemTracker tracker = new MemTracker();
         tracker.add(item);
-        List<String> answers = new ArrayList<>(Arrays.asList(item.getId(), "replaced Item"));
+        List<String> answers = new ArrayList<>(Arrays.asList("" + item.getId(), "replaced Item"));
         Input input = new StubInput(answers);
         new StartUI().actions.get(2).execute(input, tracker);
         String result = tracker.findAll().get(0).getName();
@@ -48,7 +48,7 @@ public class StartUITest {
         Item item = new Item("Fix PC");
         MemTracker tracker = new MemTracker();
         tracker.add(item);
-        List<String> answers = new ArrayList<>(Collections.singletonList(item.getId()));
+        List<String> answers = new ArrayList<>(Collections.singletonList("" + item.getId()));
         Input input = new StubInput(answers);
         new StartUI().actions.get(3).execute(input, tracker);
         List<Item> result = tracker.findAll();

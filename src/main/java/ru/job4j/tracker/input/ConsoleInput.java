@@ -17,7 +17,7 @@ public class ConsoleInput implements Input {
      * to get input from
      * user's keyboard
      */
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * Method send question

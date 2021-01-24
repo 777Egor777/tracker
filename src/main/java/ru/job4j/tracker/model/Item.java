@@ -1,5 +1,6 @@
 package ru.job4j.tracker.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -7,16 +8,23 @@ import java.util.Objects;
  * @author Egor Geraskin (yegeraskin13@gmail.com)
  * @version 1.0, 14.03.2020
  */
+@Entity
+@Table(name = "items")
 public class Item {
     /**
      * Id of the request
      */
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     /**
      * Name of the request
      */
     private String name;
+
+    public Item() {
+    }
 
     /**
      * Standard constructor
@@ -29,16 +37,24 @@ public class Item {
         this.name = name;
     }
 
-    public Item(String id, String name) {
+    public Item(Integer id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Item of(Object obj) {
+        Item result = new Item(-1, "");
+        if (obj != null && obj.getClass() == getClass()) {
+            result = (Item) obj;
+        }
+        return result;
     }
 
     /**
      * Getter for this.id
      * @return this.id
      */
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
@@ -46,7 +62,7 @@ public class Item {
      * Setter for this id
      * @param id - New value of this.id
      */
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

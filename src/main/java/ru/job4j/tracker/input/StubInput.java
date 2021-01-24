@@ -17,7 +17,7 @@ public class StubInput implements Input {
      * We consider this strings
      * as "input" from user
      */
-    private List<String> answers;
+    private final List<String> answers;
 
     /**
      * Constructor accept

@@ -15,7 +15,7 @@ public class MemTracker implements Store {
     /**
      * Array of requests
      */
-    private List<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     private int curId = 1;
 
@@ -25,9 +25,9 @@ public class MemTracker implements Store {
      * @return random number -
      *         id for some request
      */
-    private String generateId() {
+    private int generateId() {
         //long idNumber = (long) (new Date().getTime() * Math.random());
-        return "" + curId++;
+        return  curId++;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class MemTracker implements Store {
      *         null -  if there is no
      *         request with such id
      */
-    public Item findById(String id) {
+    public Item findById(Integer id) {
         int index = indexOf(id);
         return index == -1 ? null : items.get(index);
     }
@@ -106,7 +106,7 @@ public class MemTracker implements Store {
      *
      *         null - otherwise
      */
-    private int indexOf(String id) {
+    private int indexOf(Integer id) {
         int result = -1;
         for (int index = 0; index < items.size(); ++index) {
             if (items.get(index).getId().equals(id)) {
@@ -125,7 +125,7 @@ public class MemTracker implements Store {
      * @param item - new request, that
      *               replaces the old request
      */
-    public boolean replace(String id, Item item) {
+    public boolean replace(Integer id, Item item) {
         boolean result = false;
         int index = indexOf(id);
         if (index != -1) {
@@ -142,7 +142,7 @@ public class MemTracker implements Store {
      * @param id - id of the request
      *             that we should delete
      */
-    public boolean delete(String id) {
+    public boolean delete(Integer id) {
         boolean result = false;
         int index = indexOf(id);
         if (index != -1) {
