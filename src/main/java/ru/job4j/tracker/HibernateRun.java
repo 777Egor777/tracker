@@ -7,6 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.tracker.model.Item;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,10 @@ public class HibernateRun {
             System.out.println(rsl);
             delete(rsl.getId(), sf);
             findAll(sf).forEach(System.out::println);
+
+            create(new Item("Java14#Hibernate5", "desc", new Timestamp(System.currentTimeMillis())), sf);
+            create(new Item("Java14#Hibernate6", "desc", new Timestamp(System.currentTimeMillis())), sf);
+            create(new Item("Java14#Hibernate7", "desc", new Timestamp(System.currentTimeMillis())), sf);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
