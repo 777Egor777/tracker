@@ -34,28 +34,38 @@ public class HibernateTracker implements Store, AutoCloseable {
             session.save(item);
             transaction.commit();
         }
-        return null;
+        return item;
     }
 
     @Override
     public boolean replace(Integer id, Item item) {
+        boolean result = true;
         try (Session session = sf.openSession()) {
             Transaction transaction = session.beginTransaction();
             item.setId(id);
-            session.update(item);
+            if (session.get(Item.class, id) != null) {
+                session.update(item);
+            } else {
+                result = false;
+            }
             transaction.commit();
         }
-        return false;
+        return result;
     }
 
     @Override
     public boolean delete(Integer id) {
+        boolean result = true;
         try (Session session = sf.openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.delete(new Item(id));
+            if (session.get(Item.class, id) != null) {
+                session.delete(new Item(id));
+            } else {
+                result = false;
+            }
             transaction.commit();
         }
-        return false;
+        return result;
     }
 
     @Override
