@@ -11,7 +11,7 @@ import ru.job4j.tracker.store.Store;
  * a new user to
  * tracker.
  * @author Geraskin Egor (yegeraskin13@gmail.com)
- * @version $Id$
+ * @version 1.0
  */
 public class AddItemAction implements UserAction {
     /**

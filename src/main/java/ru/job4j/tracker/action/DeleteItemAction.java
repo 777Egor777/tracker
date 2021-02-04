@@ -9,7 +9,7 @@ import ru.job4j.tracker.store.Store;
  * It helps to delete
  * a user from tracker.
  * @author Geraskin Egor (yegeraskin13@gmail.com)
- * @version $Id$
+ * @version 1.0
  */
 public class DeleteItemAction implements UserAction {
     /**

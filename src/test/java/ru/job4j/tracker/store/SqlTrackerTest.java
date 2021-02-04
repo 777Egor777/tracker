@@ -1,6 +1,7 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.store;
 
 import org.junit.Test;
+import ru.job4j.tracker.StartUI;
 import ru.job4j.tracker.model.Item;
 import ru.job4j.tracker.store.SqlTracker;
 import ru.job4j.tracker.util.ConnectionRollback;
@@ -14,7 +15,7 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.*;
 
 public class SqlTrackerTest {
-    /*
+
     @Test
     public void addItemTest() throws Exception {
         try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(StartUI.initConnection()))) {
@@ -102,5 +103,5 @@ public class SqlTrackerTest {
             assertThat(tracker.findById(id), is(nullValue()));
         }
     }
-     */
+
 }

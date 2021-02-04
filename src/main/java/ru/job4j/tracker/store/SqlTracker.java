@@ -7,19 +7,49 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of
+ * {@code Store} interface,
+ * based on Postgresql+JDBC.
+ *
+ * @author Geraskin Egor (yegeraskin13@gmail.com)
+ * @version 1.0
+ */
 public class SqlTracker implements Store {
+    /**
+     * Connection to database
+     */
     private final Connection cn;
 
+    /**
+     * Constructor.
+     * @param cn - init value of
+     *             {@code cn} field
+     */
     public SqlTracker(Connection cn) {
         this.cn = cn;
         init();
     }
 
+    /**
+     * Init method.
+     * Create table
+     * of items, if
+     * it doesn't
+     * exist yet.
+     */
     @Override
     public void init() {
         createTable();
     }
 
+    /**
+     * Add item to database.
+     *
+     * @param item - new item to db
+     * @return same item, with
+     *         generated id by db
+     */
     @Override
     public Item add(Item item) {
         try (final PreparedStatement st = cn.prepareStatement(
@@ -28,7 +58,6 @@ public class SqlTracker implements Store {
         )) {
             st.setString(1, item.getName());
             st.executeUpdate();
-            addQueryToFile(String.format("insert into items(name) values('%s');", item.getName()));
             try (ResultSet gk = st.getGeneratedKeys()) {
                 if (gk.next()) {
                     item.setId(gk.getInt(1));
@@ -42,6 +71,20 @@ public class SqlTracker implements Store {
         throw new IllegalStateException("Couldn't create new user");
     }
 
+    /**
+     * If item with such id
+     * exists, replace it
+     * with new value.
+     *
+     * @param id - id of the item,
+     *             that we want to
+     *             replace.
+     * @param item - new value of
+     *               replaced item.
+     * @return true - if item with such
+     *                id exist in db
+     *         false - otherwise
+     */
     @Override
     public boolean replace(Integer id, Item item) {
         boolean result = false;
@@ -51,7 +94,6 @@ public class SqlTracker implements Store {
             st.setInt(2, itemId);
             String updQuery = String.format("update items set name='%s' where id=%d;", item.getName(), itemId);
             if (st.executeUpdate() > 0) {
-                addQueryToFile(updQuery);
                 result = true;
             }
         } catch (SQLException throwable) {
@@ -60,6 +102,19 @@ public class SqlTracker implements Store {
         return result;
     }
 
+    /**
+     * Delete item with
+     * given id from
+     * database.
+     *
+     * @param id - id of item, that
+     *             we should delete
+     * @return true - if item with such
+     *                id existed and
+     *                was successfully
+     *                deleted.
+     *         false - otherwise
+     */
     @Override
     public boolean delete(Integer id) {
         boolean result = false;
@@ -68,7 +123,6 @@ public class SqlTracker implements Store {
             st.setInt(1, itemId);
             String delQuery = String.format("delete from items where id=%d;", itemId);
             if (st.executeUpdate() > 0) {
-                addQueryToFile(delQuery);
                 result = true;
             }
 
@@ -78,6 +132,14 @@ public class SqlTracker implements Store {
         return result;
     }
 
+    /**
+     * Extract all items
+     * from database and
+     * return them as list.
+     *
+     * @return list of all items
+     *         in database.
+     */
     @Override
     public List<Item> findAll() {
         List<Item> result = new ArrayList<>();
@@ -92,6 +154,18 @@ public class SqlTracker implements Store {
         return result;
     }
 
+    /**
+     * Excract all items
+     * with such name from
+     * database and return
+     * them as list.
+     *
+     * @param name - name of items,
+     *               that we should
+     *               collect and return.
+     * @return list of items with
+     *         such name.
+     */
     @Override
     public List<Item> findByName(String name) {
         List<Item> result = new ArrayList<>();
@@ -107,6 +181,16 @@ public class SqlTracker implements Store {
         return result;
     }
 
+    /**
+     * Extract item with
+     * such id from database
+     *
+     * @param id - id of expected
+     *             item
+     * @return null - if item with
+     *         such id doesn't exist.
+     *         item - otherwise.
+     */
     @Override
     public Item findById(Integer id) {
         Item result = null;
@@ -122,6 +206,10 @@ public class SqlTracker implements Store {
         return result;
     }
 
+    /**
+     * Close connection.
+     * @throws Exception
+     */
     @Override
     public void close() throws Exception {
         if (cn != null) {
@@ -164,13 +252,5 @@ public class SqlTracker implements Store {
             throwable.printStackTrace();
         }
         return result;
-    }
-
-    private void addQueryToFile(String query) {
-        try (PrintStream ps = new PrintStream(new FileOutputStream("./db/insert.sql", true))) {
-            ps.println(query);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 }

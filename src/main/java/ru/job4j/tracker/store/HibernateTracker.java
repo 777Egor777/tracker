@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Hibernate store
+ * for {@code Item} model objects,
+ * that implements
+ * {@code Store} interface
+ *
  * @author Egor Geraskin(yegeraskin13@gmail.com)
  * @version 1.0
  * @since 24.01.2021
@@ -27,6 +32,16 @@ public class HibernateTracker implements Store, AutoCloseable {
 
     }
 
+    /**
+     * Add item to store,
+     * using Hibernate's
+     * session.
+     *
+     * @param item - new {@code Item} model's
+     *               object, that we add to
+     *               database Hibernate store
+     * @return same item, with defined id
+     */
     @Override
     public Item add(Item item) {
         try (Session session = sf.openSession()) {
@@ -37,6 +52,20 @@ public class HibernateTracker implements Store, AutoCloseable {
         return item;
     }
 
+    /**
+     * Update item with
+     * defined id in
+     * Hibernate stores's
+     * database.
+     *
+     * @param id - id of item, that
+     *             will be updated.
+     * @param item - new instance of
+     *               item with given
+     *               id
+     * @return    true - if updated successfully,
+     *            false - otherwise
+     */
     @Override
     public boolean replace(Integer id, Item item) {
         boolean result = true;
@@ -53,6 +82,18 @@ public class HibernateTracker implements Store, AutoCloseable {
         return result;
     }
 
+    /**
+     * Delete item with
+     * defined id from
+     * Hibernate's database
+     * store.
+     *
+     * @param id - id of item
+     * @return true - if such item existed in db
+     *                and was successfully
+     *                deleted
+     *         false - otherwise
+     */
     @Override
     public boolean delete(Integer id) {
         boolean result = true;
@@ -68,6 +109,13 @@ public class HibernateTracker implements Store, AutoCloseable {
         return result;
     }
 
+    /**
+     * Collects all items from
+     * Hibernate's database store
+     * and return it
+     *
+     * @return all items
+     */
     @Override
     public List<Item> findAll() {
         List<Item> result;
@@ -79,6 +127,16 @@ public class HibernateTracker implements Store, AutoCloseable {
         return result;
     }
 
+    /**
+     * Find item with such name
+     * in Hibernate store's
+     * database and return it
+     * @param name - name of item
+     * @return true - if item with such
+     *                name exist in
+     *                database
+     *         false - otherwise
+     */
     @Override
     public List<Item> findByName(String name) {
         List<Item> result;
@@ -92,6 +150,16 @@ public class HibernateTracker implements Store, AutoCloseable {
         return result;
     }
 
+    /**
+     * Find item with such id
+     * in Hibernate store's
+     * database and return it
+     * @param id - id of item
+     * @return true - if item with such
+     *                id exist in
+     *                database
+     *         false - otherwise
+     */
     @Override
     public Item findById(Integer id) {
         Item result;
@@ -103,6 +171,9 @@ public class HibernateTracker implements Store, AutoCloseable {
         return result;
     }
 
+    /**
+     * Destroy registry object.
+     */
     @Override
     public void close() {
         StandardServiceRegistryBuilder.destroy(registry);
