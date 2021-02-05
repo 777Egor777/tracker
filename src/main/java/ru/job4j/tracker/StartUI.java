@@ -135,16 +135,9 @@ public class StartUI {
         //try (Store tracker = new SqlTracker(initConnection())) {
         try (Store tracker = new MemTracker()) {
             StartUI ui = new StartUI();
-            addItemsToTrackerForProfile(tracker, 300000);
             ui.init(input, tracker, ui.actions);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private static void addItemsToTrackerForProfile(Store tracker, int numberOfItems) {
-        for (int i = 0; i < numberOfItems; ++i) {
-            tracker.add(new Item("Item" + i));
         }
     }
 }
