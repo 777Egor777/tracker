@@ -1,5 +1,6 @@
 package ru.job4j.di;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,5 +9,6 @@ import org.springframework.stereotype.Component;
  * @since 09.02.2021
  */
 @Component
+@Scope("prototype")
 public class ConsoleInput {
 }
