@@ -73,7 +73,9 @@ public class HibernateTracker implements Store, AutoCloseable {
             Transaction transaction = session.beginTransaction();
             item.setId(id);
             if (session.get(Item.class, id) != null) {
+                session.clear();
                 session.update(item);
+                session.flush();
             } else {
                 result = false;
             }
@@ -100,7 +102,9 @@ public class HibernateTracker implements Store, AutoCloseable {
         try (Session session = sf.openSession()) {
             Transaction transaction = session.beginTransaction();
             if (session.get(Item.class, id) != null) {
+                session.clear();
                 session.delete(new Item(id));
+                session.flush();
             } else {
                 result = false;
             }

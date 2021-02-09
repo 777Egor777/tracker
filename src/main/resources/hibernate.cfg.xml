@@ -18,5 +18,6 @@
         <property name="use_sql_comments">true</property>
 
         <mapping class="ru.job4j.tracker.model.Item" />
+        <mapping class="ru.job4j.tracker.model.City" />
     </session-factory>
 </hibernate-configuration>
