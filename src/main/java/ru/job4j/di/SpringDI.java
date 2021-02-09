@@ -11,11 +11,9 @@ public class SpringDI {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext();
-        context.register(Store.class);
-        context.register(ConsoleInput.class);
-        context.register(StartUI.class);
+        context.scan("ru.job4j.di");
         context.refresh();
-        StartUI ui = context.getBean(StartUI.class);
+        StartUI ui = context.getBean("startUI", StartUI.class);
         ui.add("Petr Arsentev");
         ui.add("Ivan Ivanov");
         ui.print();
